@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yang-d19.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一、下载 vscode从 visual studio code 官网下载安装即可">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VSCode使用PlatformIO插件开发使用HAL库的STM32项目">
+<meta property="og:url" content="https://yang-d19.github.io/2021/01/14/vscode-platformio-STM32/index.html">
+<meta property="og:site_name" content="侬本多情2019">
+<meta property="og:description" content="一、下载 vscode从 visual studio code 官网下载安装即可">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://yang-d19.github.io/2021/01/14/vscode-platformio-STM32/vscode官网.png">
+<meta property="og:image" content="https://yang-d19.github.io/2021/01/14/vscode-platformio-STM32/platformio.png">
+<meta property="og:image" content="https://yang-d19.github.io/2021/01/14/vscode-platformio-STM32/cubemx.png">
+<meta property="og:image" content="https://yang-d19.github.io/2021/01/14/vscode-platformio-STM32/access%20to%20mcu.png">
+<meta property="og:image" content="https://yang-d19.github.io/2021/01/14/vscode-platformio-STM32/选板子.png">
+<meta property="og:image" content="https://yang-d19.github.io/2021/01/14/vscode-platformio-STM32/normal.png">
+<meta property="og:image" content="https://yang-d19.github.io/2021/01/14/vscode-platformio-STM32/project属性.png">
+<meta property="og:image" content="https://yang-d19.github.io/2021/01/14/vscode-platformio-STM32/code%20generator.png">
+<meta property="og:image" content="https://yang-d19.github.io/2021/01/14/vscode-platformio-STM32/cumemx生成后的文件夹.png">
+<meta property="og:image" content="https://yang-d19.github.io/2021/01/14/vscode-platformio-STM32/通过code打开.png">
+<meta property="og:image" content="https://yang-d19.github.io/2021/01/14/vscode-platformio-STM32/用vscode打开后的文件夹.png">
+<meta property="og:image" content="https://yang-d19.github.io/2021/01/14/vscode-platformio-STM32/suc.png">
+<meta property="og:image" content="https://yang-d19.github.io/2021/01/14/vscode-platformio-STM32/编译结果.png">
+<meta property="article:published_time" content="2021-01-13T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-08-17T03:11:14.679Z">
+<meta property="article:author" content="yang ding">
+<meta property="article:tag" content="STM32">
+<meta property="article:tag" content="PlatformIO">
+<meta property="article:tag" content="STM32CubeMX">
+<meta property="article:tag" content="VSCode">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yang-d19.github.io/2021/01/14/vscode-platformio-STM32/vscode官网.png">
+
+<link rel="canonical" href="https://yang-d19.github.io/2021/01/14/vscode-platformio-STM32/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>VSCode使用PlatformIO插件开发使用HAL库的STM32项目 | 侬本多情2019</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">侬本多情2019</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yang-d19.github.io/2021/01/14/vscode-platformio-STM32/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="yang ding">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="侬本多情2019">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          VSCode使用PlatformIO插件开发使用HAL库的STM32项目
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-14 00:00:00" itemprop="dateCreated datePublished" datetime="2021-01-14T00:00:00+08:00">2021-01-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-08-17 11:11:14" itemprop="dateModified" datetime="2021-08-17T11:11:14+08:00">2021-08-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="一、下载-vscode"><a href="#一、下载-vscode" class="headerlink" title="一、下载 vscode"></a>一、下载 vscode</h2><p>从 visual studio code 官网下载安装即可</p>
+<img src="/2021/01/14/vscode-platformio-STM32/vscode官网.png" alt="vscode官网" style="zoom:30%;">
+
+<span id="more"></span>
+
+<h2 id="二、vscode内安装platformio插件"><a href="#二、vscode内安装platformio插件" class="headerlink" title="二、vscode内安装platformio插件"></a>二、vscode内安装platformio插件</h2><img src="/2021/01/14/vscode-platformio-STM32/platformio.png" alt="platformio" style="zoom:30%;">
+
+
+
+<h2 id="三、下载STM32CubeMX"><a href="#三、下载STM32CubeMX" class="headerlink" title="三、下载STM32CubeMX"></a>三、下载STM32CubeMX</h2><p>下载地址：<a target="_blank" rel="noopener" href="https://www.st.com/zh/development-tools/stm32cubemx.html#get-software">STM32CubeMX - STM32Cube初始化代码生成器 - STMicroelectronics</a></p>
+<img src="/2021/01/14/vscode-platformio-STM32/cubemx.png" alt="cubemx" style="zoom:30%;">
+
+
+
+<h2 id="四、使用cubemx生成初始代码"><a href="#四、使用cubemx生成初始代码" class="headerlink" title="四、使用cubemx生成初始代码"></a>四、使用cubemx生成初始代码</h2><h3 id="1、点击-ACCESS-TO-MCU-SELECTOR"><a href="#1、点击-ACCESS-TO-MCU-SELECTOR" class="headerlink" title="1、点击 ACCESS TO MCU SELECTOR"></a>1、点击 ACCESS TO MCU SELECTOR</h3><img src="/2021/01/14/vscode-platformio-STM32/access to mcu.png" alt="access to mcu" style="zoom:30%;">
+
+<h3 id="2、选择自己用的板子型号，可直接搜索"><a href="#2、选择自己用的板子型号，可直接搜索" class="headerlink" title="2、选择自己用的板子型号，可直接搜索"></a>2、选择自己用的板子型号，可直接搜索</h3><img src="/2021/01/14/vscode-platformio-STM32/选板子.png" alt="选板子" style="zoom:30%;">
+
+<h3 id="3、引脚和时钟按需求自己配置，此处略过。之前没有配置过的建议另寻教程学习"><a href="#3、引脚和时钟按需求自己配置，此处略过。之前没有配置过的建议另寻教程学习" class="headerlink" title="3、引脚和时钟按需求自己配置，此处略过。之前没有配置过的建议另寻教程学习"></a>3、引脚和时钟按需求自己配置，此处略过。之前没有配置过的建议另寻教程学习</h3><img src="/2021/01/14/vscode-platformio-STM32/normal.png" alt="normal" style="zoom:30%;">
+
+<h3 id="4、一键生成STM32初始代码"><a href="#4、一键生成STM32初始代码" class="headerlink" title="4、一键生成STM32初始代码"></a>4、一键生成STM32初始代码</h3><p>点击 Project Manager，进入项目管理界面</p>
+<h4 id="（1）选择-Project"><a href="#（1）选择-Project" class="headerlink" title="（1）选择 Project"></a>（1）选择 Project</h4><ul>
+<li>Application Structure 选择 Basic</li>
+<li>Toolchain/IDE 选择 Makefile</li>
+</ul>
+<img src="/2021/01/14/vscode-platformio-STM32/project属性.png" alt="project属性" style="zoom:30%;">
+
+<h4 id="（2）选择-Code-Generator"><a href="#（2）选择-Code-Generator" class="headerlink" title="（2）选择 Code Generator"></a>（2）选择 Code Generator</h4><ul>
+<li>选择 Copy only the necessary files</li>
+<li>勾选 Generate peripheral initialization as a pair of ‘.c/.h’ files per peripheral</li>
+</ul>
+<img src="/2021/01/14/vscode-platformio-STM32/code generator.png" alt="code generator" style="zoom:30%;">
+
+<p>点击右上角的 GENERATE CODE ，生成代码</p>
+<h2 id="五、CubeMX-和-VSCode-配合"><a href="#五、CubeMX-和-VSCode-配合" class="headerlink" title="五、CubeMX 和 VSCode 配合"></a>五、CubeMX 和 VSCode 配合</h2><h3 id="1、配置-platformio-ini-文件"><a href="#1、配置-platformio-ini-文件" class="headerlink" title="1、配置 platformio.ini 文件"></a>1、配置 <code>platformio.ini</code> 文件</h3><p>打开生成的代码所在的文件夹，此时文件结构应该如下图所示</p>
+<img src="/2021/01/14/vscode-platformio-STM32/cumemx生成后的文件夹.png" alt="cumemx生成后的文件夹" style="zoom:30%;">
+
+<p>在项目所在文件夹中新建一个空白文件，重命名为 platformio.ini，将如下代码拷贝到文件中</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[platformio]</span></span><br><span class="line"><span class="attr">src_dir</span> = ./</span><br><span class="line"><span class="attr">include_dir</span> = Inc</span><br><span class="line"></span><br><span class="line"><span class="section">[env:genericSTM32F103RC]</span></span><br><span class="line"><span class="attr">platform</span> = ststm32</span><br><span class="line"><span class="attr">board</span> = genericSTM32F103RC</span><br><span class="line"></span><br><span class="line"><span class="attr">build_flags</span> =         </span><br><span class="line">  -D STM32F103xE</span><br><span class="line">  -IInc</span><br><span class="line">  -IDrivers/CMSIS/Include</span><br><span class="line">  -IDrivers/CMSIS/Device/ST/STM32F1xx/Include</span><br><span class="line">  -IDrivers/STM32F1xx_HAL_Driver/Inc</span><br><span class="line">  -IDrivers/STM32F1xx_HAL_Driver/Inc/Legacy/</span><br><span class="line"></span><br><span class="line"><span class="attr">src_filter</span> = +&lt;Src/&gt; +&lt;startup_stm32f103xe.s&gt; +&lt;Drivers/&gt;</span><br><span class="line"></span><br><span class="line"><span class="attr">board_build.ldscript</span> = ./STM32F103RCTx_FLASH.ld</span><br><span class="line"></span><br><span class="line"><span class="attr">debug_tool</span> = stlink</span><br></pre></td></tr></table></figure>
+
+<p>注意：上面的配置基于我自己的板子，具体细节需要结合实际情况修改。</p>
+<p>比如，我使用的板子型号是 <code>STM32F103RC</code> 若你使用的型号是 <code>STM32F103ZE</code>，则<code>[env:genericSTM32F103RC] </code> 要改成 <code>[env:genericSTM32F103ZE]</code> ， <code>board = genericSTM32F103RC</code> 要修改为 <code>board = genericSTM32F103ZE</code>，等等~~</p>
+<p><code>src_filter = +&lt;Src/&gt; +&lt;startup_stm32f103xe.s&gt; +&lt;Drivers/&gt;</code> 这一行中的 <code>&lt;startup_stm32f103xe.s&gt;</code> 对应的是 cubemx 生成的项目文件中的 <code>startup_stm32f103xe.s</code> ，从上图可以找到；</p>
+<p><code>board_build.ldscript = ./STM32F103RCTx_FLASH.ld</code> 这一行中的 <code>./STM32F103RCTx_FLASH.ld</code>  对应的是 cubemx 生成的项目文件中的 <code>STM32F103RCTx_FLASH.ld</code>，同样从上图中可以找到；</p>
+<p>总之，<code>platformio.ini</code> 这个配置文件要根据 cubemx 自动生成的文件的具体名称而做修改，但是大体结构是不变的。</p>
+<h3 id="2、使用-vscode-打开"><a href="#2、使用-vscode-打开" class="headerlink" title="2、使用 vscode 打开"></a>2、使用 vscode 打开</h3><h4 id="（1）右键项目文件夹，选择用-Code-打开"><a href="#（1）右键项目文件夹，选择用-Code-打开" class="headerlink" title="（1）右键项目文件夹，选择用 Code 打开"></a>（1）右键项目文件夹，选择用 Code 打开</h4><img src="/2021/01/14/vscode-platformio-STM32/通过code打开.png" alt="通过code打开" style="zoom:30%;">
+
+<h4 id="（2）可以看到文件夹中多出了自动生成的一些内容"><a href="#（2）可以看到文件夹中多出了自动生成的一些内容" class="headerlink" title="（2）可以看到文件夹中多出了自动生成的一些内容"></a>（2）可以看到文件夹中多出了自动生成的一些内容</h4><img src="/2021/01/14/vscode-platformio-STM32/用vscode打开后的文件夹.png" alt="用vscode打开后的文件夹" style="zoom:30%;">
+
+<h4 id="（3）成功打开项目后的-VSCode-界面"><a href="#（3）成功打开项目后的-VSCode-界面" class="headerlink" title="（3）成功打开项目后的 VSCode 界面"></a>（3）成功打开项目后的 VSCode 界面</h4><img src="/2021/01/14/vscode-platformio-STM32/suc.png" alt="suc" style="zoom:30%;">
+
+<h4 id="（4）点击左下角的-√-是编译，-→-是烧录"><a href="#（4）点击左下角的-√-是编译，-→-是烧录" class="headerlink" title="（4）点击左下角的 √ 是编译， → 是烧录"></a>（4）点击左下角的 √ 是编译， → 是烧录</h4><img src="/2021/01/14/vscode-platformio-STM32/编译结果.png" alt="编译结果" style="zoom:30%;">
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/STM32/" rel="tag"># STM32</a>
+              <a href="/tags/PlatformIO/" rel="tag"># PlatformIO</a>
+              <a href="/tags/STM32CubeMX/" rel="tag"># STM32CubeMX</a>
+              <a href="/tags/VSCode/" rel="tag"># VSCode</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2021/02/07/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98-conda-tf2/" rel="next" title="使用Conda配置《机器学习实战》中的tensorflow环境">
+      使用Conda配置《机器学习实战》中的tensorflow环境 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E4%B8%8B%E8%BD%BD-vscode"><span class="nav-number">1.</span> <span class="nav-text">一、下载 vscode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81vscode%E5%86%85%E5%AE%89%E8%A3%85platformio%E6%8F%92%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">二、vscode内安装platformio插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E4%B8%8B%E8%BD%BDSTM32CubeMX"><span class="nav-number">3.</span> <span class="nav-text">三、下载STM32CubeMX</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E4%BD%BF%E7%94%A8cubemx%E7%94%9F%E6%88%90%E5%88%9D%E5%A7%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">4.</span> <span class="nav-text">四、使用cubemx生成初始代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E7%82%B9%E5%87%BB-ACCESS-TO-MCU-SELECTOR"><span class="nav-number">4.1.</span> <span class="nav-text">1、点击 ACCESS TO MCU SELECTOR</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E9%80%89%E6%8B%A9%E8%87%AA%E5%B7%B1%E7%94%A8%E7%9A%84%E6%9D%BF%E5%AD%90%E5%9E%8B%E5%8F%B7%EF%BC%8C%E5%8F%AF%E7%9B%B4%E6%8E%A5%E6%90%9C%E7%B4%A2"><span class="nav-number">4.2.</span> <span class="nav-text">2、选择自己用的板子型号，可直接搜索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E5%BC%95%E8%84%9A%E5%92%8C%E6%97%B6%E9%92%9F%E6%8C%89%E9%9C%80%E6%B1%82%E8%87%AA%E5%B7%B1%E9%85%8D%E7%BD%AE%EF%BC%8C%E6%AD%A4%E5%A4%84%E7%95%A5%E8%BF%87%E3%80%82%E4%B9%8B%E5%89%8D%E6%B2%A1%E6%9C%89%E9%85%8D%E7%BD%AE%E8%BF%87%E7%9A%84%E5%BB%BA%E8%AE%AE%E5%8F%A6%E5%AF%BB%E6%95%99%E7%A8%8B%E5%AD%A6%E4%B9%A0"><span class="nav-number">4.3.</span> <span class="nav-text">3、引脚和时钟按需求自己配置，此处略过。之前没有配置过的建议另寻教程学习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E4%B8%80%E9%94%AE%E7%94%9F%E6%88%90STM32%E5%88%9D%E5%A7%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">4.4.</span> <span class="nav-text">4、一键生成STM32初始代码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E9%80%89%E6%8B%A9-Project"><span class="nav-number">4.4.1.</span> <span class="nav-text">（1）选择 Project</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E9%80%89%E6%8B%A9-Code-Generator"><span class="nav-number">4.4.2.</span> <span class="nav-text">（2）选择 Code Generator</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81CubeMX-%E5%92%8C-VSCode-%E9%85%8D%E5%90%88"><span class="nav-number">5.</span> <span class="nav-text">五、CubeMX 和 VSCode 配合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E9%85%8D%E7%BD%AE-platformio-ini-%E6%96%87%E4%BB%B6"><span class="nav-number">5.1.</span> <span class="nav-text">1、配置 platformio.ini 文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E4%BD%BF%E7%94%A8-vscode-%E6%89%93%E5%BC%80"><span class="nav-number">5.2.</span> <span class="nav-text">2、使用 vscode 打开</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E5%8F%B3%E9%94%AE%E9%A1%B9%E7%9B%AE%E6%96%87%E4%BB%B6%E5%A4%B9%EF%BC%8C%E9%80%89%E6%8B%A9%E7%94%A8-Code-%E6%89%93%E5%BC%80"><span class="nav-number">5.2.1.</span> <span class="nav-text">（1）右键项目文件夹，选择用 Code 打开</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E5%8F%AF%E4%BB%A5%E7%9C%8B%E5%88%B0%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%AD%E5%A4%9A%E5%87%BA%E4%BA%86%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%E7%9A%84%E4%B8%80%E4%BA%9B%E5%86%85%E5%AE%B9"><span class="nav-number">5.2.2.</span> <span class="nav-text">（2）可以看到文件夹中多出了自动生成的一些内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%883%EF%BC%89%E6%88%90%E5%8A%9F%E6%89%93%E5%BC%80%E9%A1%B9%E7%9B%AE%E5%90%8E%E7%9A%84-VSCode-%E7%95%8C%E9%9D%A2"><span class="nav-number">5.2.3.</span> <span class="nav-text">（3）成功打开项目后的 VSCode 界面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%884%EF%BC%89%E7%82%B9%E5%87%BB%E5%B7%A6%E4%B8%8B%E8%A7%92%E7%9A%84-%E2%88%9A-%E6%98%AF%E7%BC%96%E8%AF%91%EF%BC%8C-%E2%86%92-%E6%98%AF%E7%83%A7%E5%BD%95"><span class="nav-number">5.2.4.</span> <span class="nav-text">（4）点击左下角的 √ 是编译， → 是烧录</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="yang ding"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">yang ding</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yang ding</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

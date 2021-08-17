@@ -17,15 +17,15 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yang-d19.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"yang-d19.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="一、下载 vscode从 visual studio code 官网下载安装即可">
+  <meta name="description" content="一般我们开发 STM32 都是使用 Keil，虽然 Keil 功能强大，但是界面实在是丑，用起来不爽。之前玩 Arduino 的时候接触到了 VSCode 里面的 PlatformIO 插件，想着也用 VSCode 安装 PlatformIO 开发 STM32，折腾了好几天终于成功。主要流程就是先用 STM32CubeMX 生成基于 HAL 库的项目初始代码，再手动配置 platformio.in">
 <meta property="og:type" content="article">
-<meta property="og:title" content="VSCode使用PlatformIO插件开发使用HAL库的STM32项目">
+<meta property="og:title" content="VSCode 使用 PlatformIO 插件开发基于 HAL 库的 STM32项目">
 <meta property="og:url" content="https://yang-d19.github.io/2021/01/14/vscode-platformio-STM32/index.html">
 <meta property="og:site_name" content="侬本多情2019">
-<meta property="og:description" content="一、下载 vscode从 visual studio code 官网下载安装即可">
+<meta property="og:description" content="一般我们开发 STM32 都是使用 Keil，虽然 Keil 功能强大，但是界面实在是丑，用起来不爽。之前玩 Arduino 的时候接触到了 VSCode 里面的 PlatformIO 插件，想着也用 VSCode 安装 PlatformIO 开发 STM32，折腾了好几天终于成功。主要流程就是先用 STM32CubeMX 生成基于 HAL 库的项目初始代码，再手动配置 platformio.in">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://yang-d19.github.io/2021/01/14/vscode-platformio-STM32/vscode官网.png">
 <meta property="og:image" content="https://yang-d19.github.io/2021/01/14/vscode-platformio-STM32/platformio.png">
@@ -41,7 +41,7 @@
 <meta property="og:image" content="https://yang-d19.github.io/2021/01/14/vscode-platformio-STM32/suc.png">
 <meta property="og:image" content="https://yang-d19.github.io/2021/01/14/vscode-platformio-STM32/编译结果.png">
 <meta property="article:published_time" content="2021-01-13T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-08-17T03:11:14.679Z">
+<meta property="article:modified_time" content="2021-08-17T06:25:31.422Z">
 <meta property="article:author" content="yang ding">
 <meta property="article:tag" content="STM32">
 <meta property="article:tag" content="PlatformIO">
@@ -63,7 +63,7 @@
   };
 </script>
 
-  <title>VSCode使用PlatformIO插件开发使用HAL库的STM32项目 | 侬本多情2019</title>
+  <title>VSCode 使用 PlatformIO 插件开发基于 HAL 库的 STM32项目 | 侬本多情2019</title>
   
 
 
@@ -191,7 +191,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          VSCode使用PlatformIO插件开发使用HAL库的STM32项目
+          VSCode 使用 PlatformIO 插件开发基于 HAL 库的 STM32项目
         </h1>
 
         <div class="post-meta">
@@ -208,10 +208,31 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-17 11:11:14" itemprop="dateModified" datetime="2021-08-17T11:11:14+08:00">2021-08-17</time>
+                <time title="修改时间：2021-08-17 14:25:31" itemprop="dateModified" datetime="2021-08-17T14:25:31+08:00">2021-08-17</time>
               </span>
 
           
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/01/14/vscode-platformio-STM32/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/01/14/vscode-platformio-STM32/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -222,19 +243,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="一、下载-vscode"><a href="#一、下载-vscode" class="headerlink" title="一、下载 vscode"></a>一、下载 vscode</h2><p>从 visual studio code 官网下载安装即可</p>
-<img src="/2021/01/14/vscode-platformio-STM32/vscode官网.png" alt="vscode官网" style="zoom:30%;">
-
+        <p>一般我们开发 STM32 都是使用 Keil，虽然 Keil 功能强大，但是界面实在是丑，用起来不爽。之前玩 Arduino 的时候接触到了 VSCode 里面的 PlatformIO 插件，想着也用 VSCode 安装 PlatformIO 开发 STM32，折腾了好几天终于成功。主要流程就是先用 STM32CubeMX 生成基于 HAL 库的项目初始代码，再手动配置 platformio.ini 文件，最后使用 VSCode 打开。</p>
 <span id="more"></span>
+
+<h2 id="一、下载-vscode"><a href="#一、下载-vscode" class="headerlink" title="一、下载 vscode"></a>一、下载 vscode</h2><p>从 visual studio code 官网下载安装即可</p>
+<img src="/2021/01/14/vscode-platformio-STM32/vscode官网.png" alt="vscode官网" style="zoom:30%;">
 
 <h2 id="二、vscode内安装platformio插件"><a href="#二、vscode内安装platformio插件" class="headerlink" title="二、vscode内安装platformio插件"></a>二、vscode内安装platformio插件</h2><img src="/2021/01/14/vscode-platformio-STM32/platformio.png" alt="platformio" style="zoom:30%;">
 
-
-
 <h2 id="三、下载STM32CubeMX"><a href="#三、下载STM32CubeMX" class="headerlink" title="三、下载STM32CubeMX"></a>三、下载STM32CubeMX</h2><p>下载地址：<a target="_blank" rel="noopener" href="https://www.st.com/zh/development-tools/stm32cubemx.html#get-software">STM32CubeMX - STM32Cube初始化代码生成器 - STMicroelectronics</a></p>
 <img src="/2021/01/14/vscode-platformio-STM32/cubemx.png" alt="cubemx" style="zoom:30%;">
-
-
 
 <h2 id="四、使用cubemx生成初始代码"><a href="#四、使用cubemx生成初始代码" class="headerlink" title="四、使用cubemx生成初始代码"></a>四、使用cubemx生成初始代码</h2><h3 id="1、点击-ACCESS-TO-MCU-SELECTOR"><a href="#1、点击-ACCESS-TO-MCU-SELECTOR" class="headerlink" title="1、点击 ACCESS TO MCU SELECTOR"></a>1、点击 ACCESS TO MCU SELECTOR</h3><img src="/2021/01/14/vscode-platformio-STM32/access to mcu.png" alt="access to mcu" style="zoom:30%;">
 
@@ -295,8 +313,8 @@
     <div class="post-nav">
       <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2021/02/07/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98-conda-tf2/" rel="next" title="使用Conda配置《机器学习实战》中的tensorflow环境">
-      使用Conda配置《机器学习实战》中的tensorflow环境 <i class="fa fa-chevron-right"></i>
+    <a href="/2021/02/07/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98-conda-tf2/" rel="next" title="使用 Anaconda 配置《机器学习实战》中的 Tensorflow 环境">
+      使用 Anaconda 配置《机器学习实战》中的 Tensorflow 环境 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -310,6 +328,7 @@
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -384,6 +403,11 @@
       </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yang-d19" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yang-d19" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
 
 
 
@@ -416,6 +440,26 @@
   </div>
 
         
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
 
 
 
@@ -465,6 +509,35 @@
   
 
   
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'QXwawUww9c3XHMoxVv0NnHOJ-gzGzoHsz',
+      appKey     : 'eg0YLmoskERPidtE7sdkzKH6',
+      placeholder: "Feel free to express",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-CN' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
 
 </body>
 </html>

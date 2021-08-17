@@ -17,20 +17,20 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yang-d19.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"yang-d19.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="一、安装 Anaconda略，请自行查阅相关资料，尽量安装最新版。 二、创建并进入虚拟环境1、 conda create 命令创建虚拟环境1conda create --name tensorflow python&#x3D;&#x3D;3.7  命令中的 tensorflow 是你新创建的环境的名字，你也可以改成其他名字例如 tf2，new_env 等等。">
+  <meta name="description" content="该教程使用 Anaconda 在 Windows 下配置基于 GPU 的 Tensorflow2 的运行环境。优点是不需要手动下载 NVIDIA CUDA 等底层支持包，一键安装；缺点是只支持 tf2.1 及以下的版本，conda 在安装高版本的 tf 不会自动补全显卡依赖。所以如果需要使用基于 GPU 的高于 2.1 版本的 tensorflow，建议按照 Tensorflow GPU支持 手动">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Windows 下使用 Anaconda 安装 Tensorflow2">
 <meta property="og:url" content="https://yang-d19.github.io/2021/06/25/conda-tf2/index.html">
 <meta property="og:site_name" content="侬本多情2019">
-<meta property="og:description" content="一、安装 Anaconda略，请自行查阅相关资料，尽量安装最新版。 二、创建并进入虚拟环境1、 conda create 命令创建虚拟环境1conda create --name tensorflow python&#x3D;&#x3D;3.7  命令中的 tensorflow 是你新创建的环境的名字，你也可以改成其他名字例如 tf2，new_env 等等。">
+<meta property="og:description" content="该教程使用 Anaconda 在 Windows 下配置基于 GPU 的 Tensorflow2 的运行环境。优点是不需要手动下载 NVIDIA CUDA 等底层支持包，一键安装；缺点是只支持 tf2.1 及以下的版本，conda 在安装高版本的 tf 不会自动补全显卡依赖。所以如果需要使用基于 GPU 的高于 2.1 版本的 tensorflow，建议按照 Tensorflow GPU支持 手动">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://yang-d19.github.io/2021/06/25/conda-tf2/1.png">
 <meta property="og:image" content="https://yang-d19.github.io/2021/06/25/conda-tf2/2.png">
 <meta property="article:published_time" content="2021-06-24T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-08-17T02:33:08.043Z">
+<meta property="article:modified_time" content="2021-08-17T06:21:01.480Z">
 <meta property="article:author" content="yang ding">
 <meta property="article:tag" content="Tensorflow">
 <meta property="article:tag" content="安装教程">
@@ -195,10 +195,31 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-17 10:33:08" itemprop="dateModified" datetime="2021-08-17T10:33:08+08:00">2021-08-17</time>
+                <time title="修改时间：2021-08-17 14:21:01" itemprop="dateModified" datetime="2021-08-17T14:21:01+08:00">2021-08-17</time>
               </span>
 
           
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/06/25/conda-tf2/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/06/25/conda-tf2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -209,12 +230,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="一、安装-Anaconda"><a href="#一、安装-Anaconda" class="headerlink" title="一、安装 Anaconda"></a>一、安装 Anaconda</h2><p>略，请自行查阅相关资料，尽量安装最新版。</p>
+        <p>该教程使用 Anaconda 在 Windows 下配置基于 GPU 的 Tensorflow2 的运行环境。优点是不需要手动下载 NVIDIA CUDA 等底层支持包，一键安装；缺点是只支持 tf2.1 及以下的版本，conda 在安装高版本的 tf 不会自动补全显卡依赖。所以如果需要使用基于 GPU 的高于 2.1 版本的 tensorflow，建议按照 <a target="_blank" rel="noopener" href="https://tensorflow.google.cn/install/gpu?hl=zh-cn">Tensorflow GPU支持</a> 手动安装 NVIDIA Driver, CUDA, cuDNN SDK 等依赖。</p>
+<span id="more"></span>
+
+<h2 id="一、安装-Anaconda"><a href="#一、安装-Anaconda" class="headerlink" title="一、安装 Anaconda"></a>一、安装 Anaconda</h2><p>略，请自行查阅相关资料，尽量安装最新版。</p>
 <h2 id="二、创建并进入虚拟环境"><a href="#二、创建并进入虚拟环境" class="headerlink" title="二、创建并进入虚拟环境"></a>二、创建并进入虚拟环境</h2><h3 id="1、-conda-create-命令创建虚拟环境"><a href="#1、-conda-create-命令创建虚拟环境" class="headerlink" title="1、 conda create 命令创建虚拟环境"></a>1、 conda create 命令创建虚拟环境</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create --name tensorflow python==3.7</span><br></pre></td></tr></table></figure>
 
 <p>命令中的 <code>tensorflow</code> 是你新创建的环境的名字，你也可以改成其他名字例如 <code>tf2</code>，<code>new_env</code> 等等。</p>
-<span id="more"></span>
-
 <p>根据官网的指示，使用 <code>tensorflow2 </code> 的 <code>python</code> 版本应当大于 <code>3.5</code></p>
 <img src="/2021/06/25/conda-tf2/1.png" style="zoom:30%;">
 
@@ -227,17 +249,17 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda deactivate</span><br></pre></td></tr></table></figure>
 
 <p>查看所有环境</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda info --envs</span><br></pre></td></tr></table></figure>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">conda</span> <span class="literal">info</span> --envs</span><br></pre></td></tr></table></figure>
 
 <p>删除环境</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda remove --name tensorflow --all</span><br></pre></td></tr></table></figure>
+<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">conda</span> <span class="comment">remove</span> --<span class="comment">name</span> <span class="comment">tensorflow</span> --<span class="comment">all</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="三、在虚拟环境中安装-Tensorflow2"><a href="#三、在虚拟环境中安装-Tensorflow2" class="headerlink" title="三、在虚拟环境中安装 Tensorflow2"></a>三、在虚拟环境中安装 Tensorflow2</h2><p>如果你的显卡是 NVIDIA 的，而且性能还可以，就建议安装 gpu 版本的 tensorflow，否则安装 cpu 版本的 tensorflow。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install tensorflow-gpu==2.1</span><br></pre></td></tr></table></figure>
 
 <p>这一步要确保在新创建的虚拟环境中进行。</p>
 <p>我在这一步遇到了网络的问题，报错信息如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">      File &quot;C:\Users\DELL\anaconda3\lib\site-packages\conda\core\subdir_data.py&quot;, line 371, in _load</span><br><span class="line">        raw_repodata_str = fetch_repodata_remote_request(</span><br><span class="line">      File &quot;C:\Users\DELL\anaconda3\lib\site-packages\conda\core\subdir_data.py&quot;, line 808, in fetch_repodata_remote_request</span><br><span class="line">        raise Response304ContentUnchanged()</span><br><span class="line">    conda.core.subdir_data.Response304ContentUnchanged</span><br><span class="line"></span><br><span class="line">    During handling of the above exception, another exception occurred:</span><br><span class="line">    ······</span><br></pre></td></tr></table></figure>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">      File &quot;C:<span class="symbol">\U</span>sers<span class="symbol">\D</span>ELL<span class="symbol">\a</span>naconda3<span class="symbol">\l</span>ib<span class="symbol">\s</span>ite-packages<span class="symbol">\c</span>onda<span class="symbol">\c</span>ore<span class="symbol">\s</span>ubdir_data.py&quot;, line 371, in _load</span><br><span class="line">        raw_repodata_str = fetch_repodata_remote_request(</span><br><span class="line">      File &quot;C:<span class="symbol">\U</span>sers<span class="symbol">\D</span>ELL<span class="symbol">\a</span>naconda3<span class="symbol">\l</span>ib<span class="symbol">\s</span>ite-packages<span class="symbol">\c</span>onda<span class="symbol">\c</span>ore<span class="symbol">\s</span>ubdir_data.py&quot;, line 808, in fetch_repodata_remote_request</span><br><span class="line">        raise Response304ContentUnchanged()</span><br><span class="line">    conda.core.subdir_data.Response304ContentUnchanged</span><br><span class="line"></span><br><span class="line">    During handling of the above exception, another exception occurred:</span><br><span class="line">    ······</span><br></pre></td></tr></table></figure>
 
 <p>看了这篇博客 <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/2bca744fcd82">Conda无法安装或更新的问题 - 简书 (jianshu.com)</a>，用下面指令清空缓存</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda clean -i</span><br></pre></td></tr></table></figure>
@@ -249,7 +271,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf </span><br><span class="line">tf.config.list_physical_devices(<span class="string">&#x27;GPU&#x27;</span>)</span><br></pre></td></tr></table></figure>
 
 <p>我的计算机上的输出为</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; tf.config.list_physical_devices(&#x27;GPU&#x27;)</span><br><span class="line">2021-06-25 19:22:10.512386: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library nvcuda.dll</span><br><span class="line">2021-06-25 19:22:10.559058: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1555] Found device 0 with properties:</span><br><span class="line">pciBusID: 0000:01:00.0 name: NVIDIA GeForce GTX 1650 Ti computeCapability: 7.5</span><br><span class="line">coreClock: 1.485GHz coreCount: 16 deviceMemorySize: 4.00GiB deviceMemoryBandwidth: 178.84GiB/s</span><br><span class="line">2021-06-25 19:22:10.559491: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library cudart64_101.dll</span><br><span class="line">2021-06-25 19:22:10.565249: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library cublas64_10.dll</span><br><span class="line">2021-06-25 19:22:10.571576: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library cufft64_10.dll</span><br><span class="line">2021-06-25 19:22:10.574451: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library curand64_10.dll</span><br><span class="line">2021-06-25 19:22:10.580182: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library cusolver64_10.dll</span><br><span class="line">2021-06-25 19:22:10.583537: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library cusparse64_10.dll</span><br><span class="line">2021-06-25 19:22:10.595823: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library cudnn64_7.dll</span><br><span class="line">2021-06-25 19:22:10.596527: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1697] Adding visible gpu devices: 0</span><br><span class="line">[PhysicalDevice(name=&#x27;/physical_device:GPU:0&#x27;, device_type=&#x27;GPU&#x27;)]</span><br></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; tf.config.list_physical_devices(<span class="string">&#x27;GPU&#x27;</span>)</span><br><span class="line"><span class="number">2021</span>-<span class="number">06</span>-<span class="number">25</span> <span class="number">19</span>:<span class="number">22</span>:<span class="number">10.512386</span>: I tensorflow<span class="regexp">/stream_executor/</span>platform<span class="regexp">/default/</span>dso_loader.cc:<span class="number">44</span>] Successfully opened dynamic library nvcuda.dll</span><br><span class="line"><span class="number">2021</span>-<span class="number">06</span>-<span class="number">25</span> <span class="number">19</span>:<span class="number">22</span>:<span class="number">10.559058</span>: I tensorflow<span class="regexp">/core/</span>common_runtime<span class="regexp">/gpu/g</span>pu_device.cc:<span class="number">1555</span>] Found device <span class="number">0</span> with properties:</span><br><span class="line">pciBusID: <span class="number">0000</span>:<span class="number">01</span>:<span class="number">00.0</span> name: NVIDIA GeForce GTX <span class="number">1650</span> Ti computeCapability: <span class="number">7.5</span></span><br><span class="line">coreClock: <span class="number">1.485</span>GHz coreCount: <span class="number">16</span> deviceMemorySize: <span class="number">4.00</span>GiB deviceMemoryBandwidth: <span class="number">178.84</span>GiB/s</span><br><span class="line"><span class="number">2021</span>-<span class="number">06</span>-<span class="number">25</span> <span class="number">19</span>:<span class="number">22</span>:<span class="number">10.559491</span>: I tensorflow<span class="regexp">/stream_executor/</span>platform<span class="regexp">/default/</span>dso_loader.cc:<span class="number">44</span>] Successfully opened dynamic library cudart64_101.dll</span><br><span class="line"><span class="number">2021</span>-<span class="number">06</span>-<span class="number">25</span> <span class="number">19</span>:<span class="number">22</span>:<span class="number">10.565249</span>: I tensorflow<span class="regexp">/stream_executor/</span>platform<span class="regexp">/default/</span>dso_loader.cc:<span class="number">44</span>] Successfully opened dynamic library cublas64_10.dll</span><br><span class="line"><span class="number">2021</span>-<span class="number">06</span>-<span class="number">25</span> <span class="number">19</span>:<span class="number">22</span>:<span class="number">10.571576</span>: I tensorflow<span class="regexp">/stream_executor/</span>platform<span class="regexp">/default/</span>dso_loader.cc:<span class="number">44</span>] Successfully opened dynamic library cufft64_10.dll</span><br><span class="line"><span class="number">2021</span>-<span class="number">06</span>-<span class="number">25</span> <span class="number">19</span>:<span class="number">22</span>:<span class="number">10.574451</span>: I tensorflow<span class="regexp">/stream_executor/</span>platform<span class="regexp">/default/</span>dso_loader.cc:<span class="number">44</span>] Successfully opened dynamic library curand64_10.dll</span><br><span class="line"><span class="number">2021</span>-<span class="number">06</span>-<span class="number">25</span> <span class="number">19</span>:<span class="number">22</span>:<span class="number">10.580182</span>: I tensorflow<span class="regexp">/stream_executor/</span>platform<span class="regexp">/default/</span>dso_loader.cc:<span class="number">44</span>] Successfully opened dynamic library cusolver64_10.dll</span><br><span class="line"><span class="number">2021</span>-<span class="number">06</span>-<span class="number">25</span> <span class="number">19</span>:<span class="number">22</span>:<span class="number">10.583537</span>: I tensorflow<span class="regexp">/stream_executor/</span>platform<span class="regexp">/default/</span>dso_loader.cc:<span class="number">44</span>] Successfully opened dynamic library cusparse64_10.dll</span><br><span class="line"><span class="number">2021</span>-<span class="number">06</span>-<span class="number">25</span> <span class="number">19</span>:<span class="number">22</span>:<span class="number">10.595823</span>: I tensorflow<span class="regexp">/stream_executor/</span>platform<span class="regexp">/default/</span>dso_loader.cc:<span class="number">44</span>] Successfully opened dynamic library cudnn64_7.dll</span><br><span class="line"><span class="number">2021</span>-<span class="number">06</span>-<span class="number">25</span> <span class="number">19</span>:<span class="number">22</span>:<span class="number">10.596527</span>: I tensorflow<span class="regexp">/core/</span>common_runtime<span class="regexp">/gpu/g</span>pu_device.cc:<span class="number">1697</span>] Adding visible gpu devices: <span class="number">0</span></span><br><span class="line">[PhysicalDevice(name=<span class="string">&#x27;/physical_device:GPU:0&#x27;</span>, device_type=<span class="string">&#x27;GPU&#x27;</span>)]</span><br></pre></td></tr></table></figure>
 
 <p>安装成功！</p>
 
@@ -271,8 +293,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/02/07/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98-conda-tf2/" rel="prev" title="使用Conda配置《机器学习实战》中的tensorflow环境">
-      <i class="fa fa-chevron-left"></i> 使用Conda配置《机器学习实战》中的tensorflow环境
+    <a href="/2021/02/07/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98-conda-tf2/" rel="prev" title="使用 Anaconda 配置《机器学习实战》中的 Tensorflow 环境">
+      <i class="fa fa-chevron-left"></i> 使用 Anaconda 配置《机器学习实战》中的 Tensorflow 环境
     </a></div>
       <div class="post-nav-item">
     <a href="/2021/07/03/json-nano-tf2/" rel="next" title="Jetson Nano 安装 Tensorflow2">
@@ -290,6 +312,7 @@
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -364,6 +387,11 @@
       </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yang-d19" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yang-d19" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
 
 
 
@@ -396,6 +424,26 @@
   </div>
 
         
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
 
 
 
@@ -445,6 +493,35 @@
   
 
   
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'QXwawUww9c3XHMoxVv0NnHOJ-gzGzoHsz',
+      appKey     : 'eg0YLmoskERPidtE7sdkzKH6',
+      placeholder: "Feel free to express",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-CN' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
 
 </body>
 </html>

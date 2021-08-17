@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yang-d19.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"yang-d19.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta property="og:type" content="website">
@@ -186,10 +186,24 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-17 10:34:25" itemprop="dateModified" datetime="2021-08-17T10:34:25+08:00">2021-08-17</time>
+                <time title="修改时间：2021-08-17 13:49:29" itemprop="dateModified" datetime="2021-08-17T13:49:29+08:00">2021-08-17</time>
               </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/08/16/hello-world/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/08/16/hello-world/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -258,10 +272,24 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-17 11:10:57" itemprop="dateModified" datetime="2021-08-17T11:10:57+08:00">2021-08-17</time>
+                <time title="修改时间：2021-08-17 14:24:01" itemprop="dateModified" datetime="2021-08-17T14:24:01+08:00">2021-08-17</time>
               </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/07/03/json-nano-tf2/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/07/03/json-nano-tf2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -272,13 +300,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="1、使用-jtop-查看-Jetpack-版本号"><a href="#1、使用-jtop-查看-Jetpack-版本号" class="headerlink" title="1、使用 jtop 查看 Jetpack 版本号"></a>1、使用 jtop 查看 Jetpack 版本号</h2><p>刷新 apt 存储库索引</p>
-<p><code>$ sudo apt-get update</code> </p>
-<p>使用 apt-get 安装 pip3</p>
-<p><code>$ sudo apt-get install python3-pip</code> </p>
-<p>使用 pip3 安装 jtop，jtop 是一个用于监测和控制 NVIDIA Jetson 系列产品的软件，虽然在终端运行，但是界面做的非常漂亮。你可以用它监测 CPU, GPU, 风扇等的运行情况。<br>jtop 的 github 链接： <a target="_blank" rel="noopener" href="https://github.com/rbonghi/jetson_stats">https://github.com/rbonghi/jetson_stats</a></p>
-<p><code>$ sudo -H pip3 install -U jetson-stats</code> </p>
-<p>启动 jtop，如果不成功的话可能需要重启 Jetson</p>
+          <p>Jetson Nano 是 arm 架构的处理器，Tensorflow 官网的安装教程无法适用，需要从 NVIDIA 官网下载专门的安装包。下面是在 Jetson Nano 上安装 Tensorflow2 的详细流程。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/07/03/json-nano-tf2/#more" rel="contents">
@@ -336,10 +358,24 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-17 10:33:08" itemprop="dateModified" datetime="2021-08-17T10:33:08+08:00">2021-08-17</time>
+                <time title="修改时间：2021-08-17 14:21:01" itemprop="dateModified" datetime="2021-08-17T14:21:01+08:00">2021-08-17</time>
               </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/06/25/conda-tf2/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/06/25/conda-tf2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -350,10 +386,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="一、安装-Anaconda"><a href="#一、安装-Anaconda" class="headerlink" title="一、安装 Anaconda"></a>一、安装 Anaconda</h2><p>略，请自行查阅相关资料，尽量安装最新版。</p>
-<h2 id="二、创建并进入虚拟环境"><a href="#二、创建并进入虚拟环境" class="headerlink" title="二、创建并进入虚拟环境"></a>二、创建并进入虚拟环境</h2><h3 id="1、-conda-create-命令创建虚拟环境"><a href="#1、-conda-create-命令创建虚拟环境" class="headerlink" title="1、 conda create 命令创建虚拟环境"></a>1、 conda create 命令创建虚拟环境</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create --name tensorflow python==3.7</span><br></pre></td></tr></table></figure>
-
-<p>命令中的 <code>tensorflow</code> 是你新创建的环境的名字，你也可以改成其他名字例如 <code>tf2</code>，<code>new_env</code> 等等。</p>
+          <p>该教程使用 Anaconda 在 Windows 下配置基于 GPU 的 Tensorflow2 的运行环境。优点是不需要手动下载 NVIDIA CUDA 等底层支持包，一键安装；缺点是只支持 tf2.1 及以下的版本，conda 在安装高版本的 tf 不会自动补全显卡依赖。所以如果需要使用基于 GPU 的高于 2.1 版本的 tensorflow，建议按照 <a target="_blank" rel="noopener" href="https://tensorflow.google.cn/install/gpu?hl=zh-cn">Tensorflow GPU支持</a> 手动安装 NVIDIA Driver, CUDA, cuDNN SDK 等依赖。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/06/25/conda-tf2/#more" rel="contents">
@@ -394,7 +427,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/02/07/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98-conda-tf2/" class="post-title-link" itemprop="url">使用Conda配置《机器学习实战》中的tensorflow环境</a>
+            <a href="/2021/02/07/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98-conda-tf2/" class="post-title-link" itemprop="url">使用 Anaconda 配置《机器学习实战》中的 Tensorflow 环境</a>
         </h2>
 
         <div class="post-meta">
@@ -411,10 +444,24 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-17 10:33:26" itemprop="dateModified" datetime="2021-08-17T10:33:26+08:00">2021-08-17</time>
+                <time title="修改时间：2021-08-17 14:27:12" itemprop="dateModified" datetime="2021-08-17T14:27:12+08:00">2021-08-17</time>
               </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/02/07/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98-conda-tf2/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/02/07/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98-conda-tf2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -425,9 +472,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>最近打算利用假期时间学习《机器学习实战》（第二版）这本书，于是先从 GitHub 上下载了本书的源代码示例 (<a target="_blank" rel="noopener" href="https://github.com/ageron/handson-ml2)%EF%BC%8C%E6%8C%89%E7%85%A7">https://github.com/ageron/handson-ml2)，按照</a> README.md 的指示用 anaconda 安装 tf2 环境，但是出了一些问题，花了很久才搞定，下面是踩过的坑的记录。</p>
-<p>首先按照 README.md 中 <code>conda env create -f environment-windows.yml </code> 尝试自动安装环境，但是安装了一部分包之后会报错<code>CondaEnvException: Pip failed</code>，猜测应该是 anaconda 自己调用的 pip 出错了。</p>
-<p>打开 <code>environment-windows.yml </code> 文件，内容如下：</p>
+          <p>最近打算利用假期时间学习《机器学习实战》（第二版）这本书，于是先从 GitHub 上下载了本书的源代码示例 (<a target="_blank" rel="noopener" href="https://github.com/ageron/handson-ml2">https://github.com/ageron/handson-ml2</a>) ，按照 README.md 的指示用 anaconda 安装 tf2 环境，但是出了一些问题，花了很久才搞定，下面是踩过的坑的记录。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/02/07/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98-conda-tf2/#more" rel="contents">
@@ -468,7 +513,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/01/14/vscode-platformio-STM32/" class="post-title-link" itemprop="url">VSCode使用PlatformIO插件开发使用HAL库的STM32项目</a>
+            <a href="/2021/01/14/vscode-platformio-STM32/" class="post-title-link" itemprop="url">VSCode 使用 PlatformIO 插件开发基于 HAL 库的 STM32项目</a>
         </h2>
 
         <div class="post-meta">
@@ -485,10 +530,24 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-17 11:11:14" itemprop="dateModified" datetime="2021-08-17T11:11:14+08:00">2021-08-17</time>
+                <time title="修改时间：2021-08-17 14:25:31" itemprop="dateModified" datetime="2021-08-17T14:25:31+08:00">2021-08-17</time>
               </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/01/14/vscode-platformio-STM32/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/01/14/vscode-platformio-STM32/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -499,8 +558,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="一、下载-vscode"><a href="#一、下载-vscode" class="headerlink" title="一、下载 vscode"></a>一、下载 vscode</h2><p>从 visual studio code 官网下载安装即可</p>
-<img src="/2021/01/14/vscode-platformio-STM32/vscode官网.png" alt="vscode官网" style="zoom:30%;">
+          <p>一般我们开发 STM32 都是使用 Keil，虽然 Keil 功能强大，但是界面实在是丑，用起来不爽。之前玩 Arduino 的时候接触到了 VSCode 里面的 PlatformIO 插件，想着也用 VSCode 安装 PlatformIO 开发 STM32，折腾了好几天终于成功。主要流程就是先用 STM32CubeMX 生成基于 HAL 库的项目初始代码，再手动配置 platformio.ini 文件，最后使用 VSCode 打开。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/01/14/vscode-platformio-STM32/#more" rel="contents">
@@ -603,6 +661,11 @@
       </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yang-d19" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yang-d19" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
 
 
 
@@ -635,6 +698,26 @@
   </div>
 
         
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
 
 
 
@@ -684,6 +767,35 @@
   
 
   
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'QXwawUww9c3XHMoxVv0NnHOJ-gzGzoHsz',
+      appKey     : 'eg0YLmoskERPidtE7sdkzKH6',
+      placeholder: "Feel free to express",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-CN' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
 
 </body>
 </html>

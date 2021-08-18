@@ -182,7 +182,7 @@
               目前共计 10 个标签
             </div>
             <div class="tag-cloud-tags">
-              <a href="/tags/Codeforces/" style="font-size: 12px; color: #ccc">Codeforces</a> <a href="/tags/Jetson-Nano/" style="font-size: 12px; color: #ccc">Jetson Nano</a> <a href="/tags/PlatformIO/" style="font-size: 12px; color: #ccc">PlatformIO</a> <a href="/tags/STM32/" style="font-size: 12px; color: #ccc">STM32</a> <a href="/tags/STM32CubeMX/" style="font-size: 12px; color: #ccc">STM32CubeMX</a> <a href="/tags/Tensorflow/" style="font-size: 30px; color: #111">Tensorflow</a> <a href="/tags/VSCode/" style="font-size: 12px; color: #ccc">VSCode</a> <a href="/tags/%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/" style="font-size: 30px; color: #111">安装教程</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0/" style="font-size: 12px; color: #ccc">机器学习实战笔记</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 12px; color: #ccc">算法</a>
+              <a href="/tags/Codeforces/" style="font-size: 21px; color: #6f6f6f">Codeforces</a> <a href="/tags/Jetson-Nano/" style="font-size: 12px; color: #ccc">Jetson Nano</a> <a href="/tags/PlatformIO/" style="font-size: 12px; color: #ccc">PlatformIO</a> <a href="/tags/STM32/" style="font-size: 12px; color: #ccc">STM32</a> <a href="/tags/STM32CubeMX/" style="font-size: 12px; color: #ccc">STM32CubeMX</a> <a href="/tags/Tensorflow/" style="font-size: 30px; color: #111">Tensorflow</a> <a href="/tags/VSCode/" style="font-size: 12px; color: #ccc">VSCode</a> <a href="/tags/%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/" style="font-size: 30px; color: #111">安装教程</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98%E7%AC%94%E8%AE%B0/" style="font-size: 12px; color: #ccc">机器学习实战笔记</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 21px; color: #6f6f6f">算法</a>
             </div>
           </div>
         
@@ -262,7 +262,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -380,6 +380,59 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 

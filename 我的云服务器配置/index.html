@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>我的云服务器配置 - Yoris&#039;s Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="Yoris&#039;s Blog"><meta name="msapplication-TileImage" content="/img/yoris.ico"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Yoris&#039;s Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="This blog introduce the detailed configuration of my cloud server, including customizing shell theme and vim theme. It also tell you how to run a apache http server and deploy your blog resource to th"><meta property="og:type" content="blog"><meta property="og:title" content="我的云服务器配置"><meta property="og:url" content="https://yoris.top/%E6%88%91%E7%9A%84%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/"><meta property="og:site_name" content="Yoris&#039;s Blog"><meta property="og:description" content="This blog introduce the detailed configuration of my cloud server, including customizing shell theme and vim theme. It also tell you how to run a apache http server and deploy your blog resource to th"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://yoris.top/我的云服务器配置/agnoster.png"><meta property="og:image" content="https://yoris.top/我的云服务器配置/vim.png"><meta property="og:image" content="https://yoris.top/我的云服务器配置/system-ctrl.png"><meta property="og:image" content="https://yoris.top/我的云服务器配置/apache.png"><meta property="article:published_time" content="2022-08-13T16:00:00.000Z"><meta property="article:modified_time" content="2023-01-31T10:38:32.029Z"><meta property="article:author" content="Ding Yang"><meta property="article:tag" content="留档备查"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://yoris.top/我的云服务器配置/agnoster.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://yoris.top/%E6%88%91%E7%9A%84%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/"},"headline":"我的云服务器配置","image":["https://yoris.top/我的云服务器配置/agnoster.png","https://yoris.top/我的云服务器配置/vim.png","https://yoris.top/我的云服务器配置/system-ctrl.png","https://yoris.top/我的云服务器配置/apache.png"],"datePublished":"2022-08-13T16:00:00.000Z","dateModified":"2023-01-31T10:38:32.029Z","author":{"@type":"Person","name":"Ding Yang"},"publisher":{"@type":"Organization","name":"Yoris's Blog","logo":{"@type":"ImageObject","url":"https://yoris.top/img/yoris.ico"}},"description":"This blog introduce the detailed configuration of my cloud server, including customizing shell theme and vim theme. It also tell you how to run a apache http server and deploy your blog resource to th"}</script><link rel="canonical" href="https://yoris.top/%E6%88%91%E7%9A%84%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/"><link rel="icon" href="/img/yoris.ico"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/yoris.ico" alt="Yoris&#039;s Blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2022-08-13T16:00:00.000Z" title="2022/8/14 00:00:00">2022-08-14</time></span><span class="level-item">Updated&nbsp;<time dateTime="2023-01-31T10:38:32.029Z" title="2023/1/31 18:38:32">2023-01-31</time></span><span class="level-item"><a class="link-muted" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></span><span class="level-item">6 minutes read (About 890 words)</span></div></div><h1 class="title is-3 is-size-4-mobile">我的云服务器配置</h1><div class="content"><p>This blog introduce the detailed configuration of my cloud server, including customizing shell theme and vim theme. It also tell you how to run a apache http server and deploy your blog resource to the server.</p>
+<span id="more"></span>
+
+<h2 id="1-Get-Cloud-Server"><a href="#1-Get-Cloud-Server" class="headerlink" title="1. Get Cloud Server"></a>1. Get Cloud Server</h2><p>I bought it from Tecent Cloud.</p>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/act/campus">学生云服务器_学生云主机_学生云数据库_云+校园特惠套餐 - 腾讯云 (tencent.com)</a></p>
+<h2 id="2-Configuration"><a href="#2-Configuration" class="headerlink" title="2. Configuration"></a>2. Configuration</h2><h3 id="1-Set-basic-environment"><a href="#1-Set-basic-environment" class="headerlink" title="(1) Set basic environment"></a>(1) Set basic environment</h3><h4 id="a-switch-to-zsh"><a href="#a-switch-to-zsh" class="headerlink" title="a. switch to zsh"></a>a. switch to zsh</h4><p>Install zsh</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install zsh</span><br></pre></td></tr></table></figure>
+
+<p>Change default shell to zsh</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chsh -s /bin/zsh</span><br></pre></td></tr></table></figure>
+
+<p>Close and reopen terminal, then use</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo $SHELL</span><br></pre></td></tr></table></figure>
+
+<p>to check if you have seccessfully changed to <code>zsh</code></p>
+<h4 id="b-install-oh-my-zsh"><a href="#b-install-oh-my-zsh" class="headerlink" title="b. install oh-my-zsh"></a>b. install oh-my-zsh</h4><p>I choose <code>oh-my-zsh</code>. A powerful and beautiful zsh shell theme.</p>
+<p>It’s hard to directly download files from github in China, so I use a domestic mirror to accelarate the procedure. If you don’t have that problem, just follow the instruction from <a target="_blank" rel="noopener" href="https://github.com/ohmyzsh/ohmyzsh">here</a> to install it.</p>
+<p>Download <code>install.sh</code> by</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install.sh</span><br></pre></td></tr></table></figure>
+
+<p>Change the below lines</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">REPO=$&#123;REPO:-ohmyzsh/ohmyzsh&#125;</span><br><span class="line">REMOTE=$&#123;REMOTE:-https://github.com/$&#123;REPO&#125;.git&#125;</span><br></pre></td></tr></table></figure>
+
+<p>to</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">REPO=$&#123;REPO:-mirrors/oh-my-zsh&#125;</span><br><span class="line">REMOTE=$&#123;REMOTE:-https://gitee.com/$&#123;REPO&#125;.git&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Then run</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zsh install.sh</span><br></pre></td></tr></table></figure>
+
+<p>Modify the remote url of oh-my-zsh to make it update from the mirror instead of github</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd ~/.oh-my-zsh</span><br><span class="line">git remote set-url origin https://gitee.com/mirrors/oh-my-zsh.git</span><br></pre></td></tr></table></figure>
+
+<h4 id="c-enable-ssh-pubkey-authentication"><a href="#c-enable-ssh-pubkey-authentication" class="headerlink" title="c. enable ssh pubkey authentication"></a>c. enable ssh pubkey authentication</h4><p>Generate your local rsa key pair</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
+
+<p>Copy the content of <code>id_rsa.pub</code> and add to <code>~/.ssh/authorized_keys</code>.</p>
+<p>Then enter<code>sshd_config</code> to enable authentication</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure>
+
+<p>uncomment those two lines</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PubkeyAuthentication yes </span><br><span class="line">AuthorizedKeysFile .ssh/authorized_keys</span><br></pre></td></tr></table></figure>
+
+<p>restart sshd service</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart sshd</span><br></pre></td></tr></table></figure>
+
+<h4 id="d-keep-connection-alive"><a href="#d-keep-connection-alive" class="headerlink" title="d. keep connection alive"></a>d. keep connection alive</h4><p>It annoys me that my cloud server always disconnect with my local ssh terminal after a period of time without manipulation. One solution is to modify <code>/etc/ssh/sshd_config</code>.</p>
+<p>Uncomment those two lines:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#ClientAliveInterval 0</span><br><span class="line">#ClientAliveCountMax 3</span><br></pre></td></tr></table></figure>
+
+<p>and change them to:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ClientAliveInterval 60</span><br><span class="line">ClientAliveCountMax 3</span><br></pre></td></tr></table></figure>
+
+<p>which means the server will send signals to client every 60 seconds to keep the connection alive, and the connection will be closed if denied for 3 times.</p>
+<p>Then restart sshd service</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart sshd</span><br></pre></td></tr></table></figure>
+
+<p>Reopen the terminal, then you won’t be disconnected</p>
+<h3 id="2-Oh-my-zsh-advance-config"><a href="#2-Oh-my-zsh-advance-config" class="headerlink" title="(2) Oh-my-zsh advance config"></a>(2) Oh-my-zsh advance config</h3><h4 id="a-color-themes"><a href="#a-color-themes" class="headerlink" title="a. color themes"></a>a. color themes</h4><p>You can select various color themes, my favorite is <code>agnoster</code>.</p>
+<p>It looks like that:</p>
+<img src="/我的云服务器配置/agnoster.png" alt="agnoster" style="zoom:30%;" />
+
+<p>Change it by modifying <code>ZSH_THEME=&quot;agnoster&quot;</code> or something else in <code>~/.zshrc</code>.</p>
+<p>If you do not want to display user name and server name, just like me, add <code>prompt_context() &#123;&#125;</code> at the end of <code>~/.zshrc</code> .</p>
+<p>Check <a target="_blank" rel="noopener" href="https://github.com/ohmyzsh/ohmyzsh/wiki/Themes">Themes · ohmyzsh&#x2F;ohmyzsh Wiki (github.com) </a>to find more oh-my-zsh themes.</p>
+<h4 id="b-add-plugins"><a href="#b-add-plugins" class="headerlink" title="b. add plugins"></a>b. add plugins</h4><p>I add three plugins to oh-my-zsh</p>
+<p><code>zsh-autosuggestions</code> and <code>zsh-syntax-highlighting</code> need manual installation</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/zsh-users/zsh-autosuggestions $&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;/plugins/zsh-autosuggestions</span><br><span class="line">git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;/plugins/zsh-syntax-highlighting</span><br></pre></td></tr></table></figure>
+
+<p><code>z</code> has been installed by default.</p>
+<p>Then add these plugins to <code>plugins = (...)</code> in <code>~/.zshrc</code>, just like below</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plugins=(git z zsh-autosuggestions zsh-syntax-highlighting)</span><br></pre></td></tr></table></figure>
+
+<p>Note that <code>git </code>is both installed and added to plugins list by default.</p>
+<p>You can add as many plugins as you can, but it may slow down the zsh shell, be cautious!</p>
+<h3 id="3-Vim-advance-config"><a href="#3-Vim-advance-config" class="headerlink" title="(3) Vim advance config"></a>(3) Vim advance config</h3><p>This is my personal configuration file <code>.vimrc</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">syntax on                                                        </span><br><span class="line">filetype off</span><br><span class="line">set nocompatible</span><br><span class="line">set rtp+=~/.vim/bundle/Vundle.vim</span><br><span class="line"></span><br><span class="line">call vundle#begin()</span><br><span class="line">Plugin &#x27;VundleVim/Vundle.vim&#x27;</span><br><span class="line">Plugin &#x27;tomasr/molokai&#x27;</span><br><span class="line">Plugin &#x27;vim-airline/vim-airline&#x27;</span><br><span class="line">Plugin &#x27;vim-airline/vim-airline-themes&#x27;</span><br><span class="line">Plugin &#x27;jiangmiao/auto-pairs&#x27;</span><br><span class="line">call vundle#end()</span><br><span class="line"></span><br><span class="line">filetype plugin indent on</span><br><span class="line"></span><br><span class="line">colorscheme molokai</span><br><span class="line">let g:molokai_original = 1</span><br><span class="line">let g:airline_theme=&#x27;molokai&#x27;</span><br><span class="line"></span><br><span class="line">set backspace=2</span><br><span class="line">set showcmd</span><br><span class="line">set cursorline</span><br><span class="line">set hlsearch</span><br><span class="line">set background=dark</span><br><span class="line">set ts=4</span><br><span class="line">set softtabstop=4</span><br><span class="line">set shiftwidth=4</span><br><span class="line">set expandtab</span><br><span class="line">set autoindent</span><br><span class="line">set number</span><br></pre></td></tr></table></figure>
+
+<p>I use <a target="_blank" rel="noopener" href="https://github.com/VundleVim/Vundle.vim">Vundle, the plug-in manager for Vim</a> as my vim plugin manager.</p>
+<p>To install Vundle, run <code>git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim</code>, with Vundle, you can manage your vim plugin more conveniently.</p>
+<p>You can choose awesome vim plugins from <a target="_blank" rel="noopener" href="https://vimawesome.com/">Vim Awesome</a>, type <code>vim +PluginInstall +qall</code> every time you add plugins between <code>call vundle#begin()</code> and <code>call vundle#end()</code>.</p>
+<p>This is how it looks like.</p>
+<img src="/我的云服务器配置/vim.png" alt="vim" style="zoom:30%;" />
+
+<p><code>tomasr/molokai</code>, <code>vim-airline/vim-airline</code> and so on are all plugins that I added, but keep in mind that too many plugins may slow down your editor, so I prefer to install most necessary vim plugins only.</p>
+<h3 id="4-Apache-server"><a href="#4-Apache-server" class="headerlink" title="(4) Apache server"></a>(4) Apache server</h3><p>I use apache as the web engine to post my blogs.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install apache2</span><br></pre></td></tr></table></figure>
+
+<p>See if apache service is running in your server.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl status apache2</span><br></pre></td></tr></table></figure>
+
+<img src="/我的云服务器配置/system-ctrl.png" alt="system-ctrl" style="zoom:30%;" />
+
+<p>Then type my server’s IP address in browser</p>
+<img src="/我的云服务器配置/apache.png" alt="apache" style="zoom: 30%;" />
+
+<p>Done!</p>
+<p>Substitute <code>/var/www/html/index.html</code> with your own resources, such as your blogs, then people can go to the website to view your blogs.</p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>我的云服务器配置</p><p><a href="https://yoris.top/我的云服务器配置/">https://yoris.top/我的云服务器配置/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>Author</h6><p>Ding Yang</p></div></div><div class="level-item is-narrow"><div><h6>Posted on</h6><p>2022-08-14</p></div></div><div class="level-item is-narrow"><div><h6>Updated on</h6><p>2023-01-31</p></div></div><div class="level-item is-narrow"><div><h6>Licensed under</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/%E7%95%99%E6%A1%A3%E5%A4%87%E6%9F%A5/">留档备查</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/%E6%90%AD%E5%BB%BA%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2%E7%B3%BB%E7%BB%9F/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">搭建我的博客系统</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2022%E6%98%A5-%E5%AD%A6%E6%9C%9F%E6%80%BB%E7%BB%93/"><span class="level-item">2022春-学期总结</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">Comments</h3><div class="content" id="valine-thread"></div><script src="//cdn.jsdelivr.net/npm/leancloud-storage@3/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@1.4.16/dist/Valine.min.js"></script><script>new Valine({
+            el: '#valine-thread',
+            appId: "QXwawUww9c3XHMoxVv0NnHOJ-gzGzoHsz",
+            appKey: "eg0YLmoskERPidtE7sdkzKH6",
+            placeholder: "Hello World!",
+            avatar: "mm",
+            avatarForce: false,
+            meta: ["nick","mail"],
+            pageSize: 10,
+            lang: "en",
+            visitor: false,
+            highlight: true,
+            recordIP: false,
+            
+            
+            
+            enableQQ: false,
+            requiredFields: [],
+        });</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/img/yahaha.jpg" alt="Ding Yang"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Ding Yang</p><p class="is-size-6 is-block">College Student</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>Beijing, China</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">Posts</p><a href="/archives"><p class="title">23</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Categories</p><a href="/categories"><p class="title">3</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Tags</p><a href="/tags"><p class="title">22</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/yang-d19" target="_blank" rel="noopener">Follow</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/yang-d19"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Email" href="mailto:yangding19thu@outlook.com"><i class="fa fa-envelope"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Wechat" href="/img/wechat.jpg"><i class="fab fa-weixin"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/yangdin13606764"><i class="fab fa-twitter"></i></a></div></div></div><!--!--><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">Links</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">Categories</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/%E6%8A%80%E6%9C%AF/"><span class="level-start"><span class="level-item">技术</span></span><span class="level-end"><span class="level-item tag">18</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%96%87%E8%89%BA/"><span class="level-start"><span class="level-item">文艺</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%94%9F%E6%B4%BB/"><span class="level-start"><span class="level-item">生活</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">Recents</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2022-10-04T16:00:00.000Z">2022-10-05</time></p><p class="title"><a href="/%E4%BD%BF%E7%94%A8%E7%BD%91%E7%BA%BF%E8%BF%9E%E6%8E%A5%E6%A0%91%E8%8E%93%E6%B4%BE%E5%BC%80%E5%8F%91/">使用网线连接树莓派开发</a></p><p class="categories"><a href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2022-09-27T16:00:00.000Z">2022-09-28</time></p><p class="title"><a href="/WSL2%E6%90%AD%E5%BB%BAv2Ray%E4%BB%A3%E7%90%86/">WSL2搭建v2Ray代理</a></p><p class="categories"><a href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2022-09-25T16:00:00.000Z">2022-09-26</time></p><p class="title"><a href="/WSL2-Ubuntu-GUI/">WSL2 Ubuntu GUI</a></p><p class="categories"><a href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2022-08-19T16:00:00.000Z">2022-08-20</time></p><p class="title"><a href="/%E6%90%AD%E5%BB%BA%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2%E7%B3%BB%E7%BB%9F/">搭建我的博客系统</a></p><p class="categories"><a href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2022-08-13T16:00:00.000Z">2022-08-14</time></p><p class="title"><a href="/%E6%88%91%E7%9A%84%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/">我的云服务器配置</a></p><p class="categories"><a href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">Archives</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2022/10/"><span class="level-start"><span class="level-item">October 2022</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/09/"><span class="level-start"><span class="level-item">September 2022</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/08/"><span class="level-start"><span class="level-item">August 2022</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/05/"><span class="level-start"><span class="level-item">May 2022</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/02/"><span class="level-start"><span class="level-item">February 2022</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/01/"><span class="level-start"><span class="level-item">January 2022</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/10/"><span class="level-start"><span class="level-item">October 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/08/"><span class="level-start"><span class="level-item">August 2021</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/07/"><span class="level-start"><span class="level-item">July 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/06/"><span class="level-start"><span class="level-item">June 2021</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/02/"><span class="level-start"><span class="level-item">February 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/01/"><span class="level-start"><span class="level-item">January 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/01/"><span class="level-start"><span class="level-item">January 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">Tags</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/Codeforces/"><span class="tag">Codeforces</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Git/"><span class="tag">Git</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Hexo/"><span class="tag">Hexo</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Jetson-Nano/"><span class="tag">Jetson Nano</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Linux/"><span class="tag">Linux</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/PlatformIO/"><span class="tag">PlatformIO</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/STM32/"><span class="tag">STM32</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/STM32CubeMX/"><span class="tag">STM32CubeMX</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Tensorflow/"><span class="tag">Tensorflow</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/VSCode/"><span class="tag">VSCode</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Vim/"><span class="tag">Vim</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/WSL/"><span class="tag">WSL</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/WSL2/"><span class="tag">WSL2</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%89%8D%E7%AB%AF/"><span class="tag">前端</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/"><span class="tag">安装教程</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%80%BB%E7%BB%93/"><span class="tag">总结</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%97%A5%E5%B8%B8/"><span class="tag">日常</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/"><span class="tag">树莓派</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%95%99%E6%A1%A3%E5%A4%87%E6%9F%A5/"><span class="tag">留档备查</span><span class="tag">10</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%AC%94%E8%AE%B0/"><span class="tag">笔记</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%AE%97%E6%B3%95/"><span class="tag">算法</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BB%98%E7%94%BB/"><span class="tag">绘画</span><span class="tag">1</span></a></div></div></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/yoris.ico" alt="Yoris&#039;s Blog" height="28"></a><p class="is-size-7"><span>&copy; 2023 Ding Yang</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="Back to top" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "This website uses cookies to improve your experience.",
+          dismiss: "Got it!",
+          allow: "Allow cookies",
+          deny: "Decline",
+          link: "Learn more",
+          policy: "Cookie Policy",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="Type something..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"Type something...","untitled":"(Untitled)","posts":"Posts","pages":"Pages","categories":"Categories","tags":"Tags"});
+        });</script></body></html>

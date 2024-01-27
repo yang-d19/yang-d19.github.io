@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Ego Planner Reading Note - Ding&#039;s Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="Ding&#039;s Blog"><meta name="msapplication-TileImage" content="/img/yoris.ico"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Ding&#039;s Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="This is the reading note for ZJU-FAST-Lab&amp;#x2F;ego-planner-swarm: An efficient single&amp;#x2F;multi-agent trajectory planner for multicopters. (github.com) This code repo is so complex that I can only go"><meta property="og:type" content="blog"><meta property="og:title" content="Ego Planner Reading Note"><meta property="og:url" content="https://yang-d19.github.io/Ego-Planner-Reading-Note/"><meta property="og:site_name" content="Ding&#039;s Blog"><meta property="og:description" content="This is the reading note for ZJU-FAST-Lab&amp;#x2F;ego-planner-swarm: An efficient single&amp;#x2F;multi-agent trajectory planner for multicopters. (github.com) This code repo is so complex that I can only go"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://yang-d19.github.io/Ego-Planner-Reading-Note/node-random_forest.png"><meta property="og:image" content="https://yang-d19.github.io/Ego-Planner-Reading-Note/node-traj_server.png"><meta property="og:image" content="https://yang-d19.github.io/Ego-Planner-Reading-Note/node-poscmd.png"><meta property="og:image" content="https://yang-d19.github.io/Ego-Planner-Reading-Note/node-odom_visualization.png"><meta property="article:published_time" content="2023-10-03T19:46:57.000Z"><meta property="article:modified_time" content="2024-01-27T07:37:07.349Z"><meta property="article:author" content="Ding Yang"><meta property="article:tag" content="Ego Planner"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://yang-d19.github.io/Ego-Planner-Reading-Note/node-random_forest.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://yang-d19.github.io/Ego-Planner-Reading-Note/"},"headline":"Ego Planner Reading Note","image":["https://yang-d19.github.io/Ego-Planner-Reading-Note/node-random_forest.png","https://yang-d19.github.io/Ego-Planner-Reading-Note/node-traj_server.png","https://yang-d19.github.io/Ego-Planner-Reading-Note/node-poscmd.png","https://yang-d19.github.io/Ego-Planner-Reading-Note/node-odom_visualization.png"],"datePublished":"2023-10-03T19:46:57.000Z","dateModified":"2024-01-27T07:37:07.349Z","author":{"@type":"Person","name":"Ding Yang"},"publisher":{"@type":"Organization","name":"Ding's Blog","logo":{"@type":"ImageObject","url":"https://yang-d19.github.io/img/yoris.ico"}},"description":"This is the reading note for ZJU-FAST-Lab&#x2F;ego-planner-swarm: An efficient single&#x2F;multi-agent trajectory planner for multicopters. (github.com) This code repo is so complex that I can only go"}</script><link rel="canonical" href="https://yang-d19.github.io/Ego-Planner-Reading-Note/"><link rel="icon" href="/img/yoris.ico"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/yoris.ico" alt="Ding&#039;s Blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2023-10-03T19:46:57.000Z" title="10/3/2023, 3:46:57 PM">2023-10-03</time></span><span class="level-item">Updated&nbsp;<time dateTime="2024-01-27T07:37:07.349Z" title="1/27/2024, 2:37:07 AM">2024-01-27</time></span><span class="level-item"><a class="link-muted" href="/categories/Technology/">Technology</a></span><span class="level-item">14 minutes read (About 2164 words)</span></div></div><h1 class="title is-3 is-size-4-mobile">Ego Planner Reading Note</h1><div class="content"><p>This is the reading note for <a target="_blank" rel="noopener" href="https://github.com/ZJU-FAST-Lab/ego-planner-swarm">ZJU-FAST-Lab&#x2F;ego-planner-swarm: An efficient single&#x2F;multi-agent trajectory planner for multicopters. (github.com)</a></p>
+<p>This code repo is so complex that I can only go through a small part of it. In this reading note, I start from the process of launching the file: single_run_in_sim.launch. That is, what nodes does single drone in simulation environment uses and how do these nodes communicate with each other.</p>
+<p>I also include detailed analysis of some important source file. For example, what are their core functions and what is the calling process of them.</p>
+<span id="more"></span>
+
+<h1 id="0-Draw-node-relationship-graph"><a href="#0-Draw-node-relationship-graph" class="headerlink" title="[0] Draw node relationship graph"></a>[0] Draw node relationship graph</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosrun rqt_graph</span><br></pre></td></tr></table></figure>
+
+<p>Must be executed after launching ros shell script. It can draw the relation graph of all nodes and topics that are used.</p>
+<hr>
+<h1 id="1-launch-rviz-with-config-file"><a href="#1-launch-rviz-with-config-file" class="headerlink" title="[1] launch rviz with config file"></a>[1] launch rviz with config file</h1><p>from planner&#x2F;plan_manage_launch&#x2F;default.rviz</p>
+<p>the config file is modified every time you change config in rviz.</p>
+<hr>
+<h1 id="2-launch-single-run-in-sim-launch"><a href="#2-launch-single-run-in-sim-launch" class="headerlink" title="[2] launch single_run_in_sim.launch"></a>[2] launch single_run_in_sim.launch</h1><ul>
+<li>Sub means subscribe</li>
+<li>Pub means publish</li>
+<li>Arrows → and ← represent the mapping relation of topics or nodes</li>
+</ul>
+<blockquote>
+<p>For some important topics, I labeled the topic message type, the sender or receiver functions and the calling frequency. I drew some nodes and topics relation graphs with <a target="_blank" rel="noopener" href="http://draw.io/">draw.io</a> to make it more clearer.</p>
+</blockquote>
+<h2 id="1-launch-node-map-generator-x2F-random-forest"><a href="#1-launch-node-map-generator-x2F-random-forest" class="headerlink" title="1 launch node [map_generator&#x2F;random_forest]"></a>1 launch node [map_generator&#x2F;random_forest]</h2><p>in source file <em>planner&#x2F;map_generator&#x2F;random_forest_sensing.cpp</em></p>
+<h3 id="Sub1-topic-odometry"><a href="#Sub1-topic-odometry" class="headerlink" title="Sub1 topic odometry"></a>Sub1 topic odometry</h3><p>unused</p>
+<h3 id="Pub1-topic-“-x2F-map-generator-x2F-global-cloud”"><a href="#Pub1-topic-“-x2F-map-generator-x2F-global-cloud”" class="headerlink" title="Pub1 topic “&#x2F;map_generator&#x2F;global_cloud”"></a>Pub1 topic “&#x2F;map_generator&#x2F;global_cloud”</h3><p>through publisher _all_map_pub in function <code>pubSensedPoints()</code></p>
+<p>data source is cloudMap, which is generated in function <code>RandomMapGenerateCylinder()</code>,</p>
+<p>which is called once in <code>main()</code></p>
+<blockquote>
+<p>  There exist another similar function RandomMapGenerate(). The only difference between them is the original one generates square colomn instead of cylinder ones. They only differ in one line! (Why not merge them into one function?)</p>
+</blockquote>
+<h3 id="Pub2-topic-“-x2F-map-generator-x2F-local-cloud”"><a href="#Pub2-topic-“-x2F-map-generator-x2F-local-cloud”" class="headerlink" title="Pub2 topic “&#x2F;map_generator&#x2F;local_cloud”"></a>Pub2 topic “&#x2F;map_generator&#x2F;local_cloud”</h3><p>unused</p>
+<blockquote>
+<p>  The topic is never used as relevant codes in function pubSensedPoints() is behind a return statement. What’s more, the relevant codes requires odom message which comes from “odometry” topic, which is not provided to the random_forest node.</p>
+</blockquote>
+<h3 id="Node-Topic-Graph"><a href="#Node-Topic-Graph" class="headerlink" title="Node-Topic Graph"></a>Node-Topic Graph</h3><img src="/Ego-Planner-Reading-Note/node-random_forest.png" alt="node-random_forest" style="zoom:30%;" />
+
+<h2 id="2-include-xml-file-advanced-param-xml"><a href="#2-include-xml-file-advanced-param-xml" class="headerlink" title="2 include xml file advanced_param.xml"></a>2 include xml file advanced_param.xml</h2><p>in which contains the following nodes:</p>
+<h2 id="2a-launch-node-ego-planner-x2F-ego-planner-node-as-drone-arg-drone-id-ego-planner-node-→-drone-0-ego-planner-node"><a href="#2a-launch-node-ego-planner-x2F-ego-planner-node-as-drone-arg-drone-id-ego-planner-node-→-drone-0-ego-planner-node" class="headerlink" title="2a launch node ego_planner&#x2F;ego_planner_node as drone_$(arg drone_id)_ego_planner_node → [drone_0_ego_planner_node]"></a>2a launch node ego_planner&#x2F;ego_planner_node as drone_$(arg drone_id)_ego_planner_node → [drone_0_ego_planner_node]</h2><p>source files: ( all in planner&#x2F;plan_manage&#x2F;src&#x2F; folder)</p>
+<ul>
+<li>ego_planner_node.cpp (Just the launcher of fsm)</li>
+<li>ego_replan_fsm.cpp (Contains the finite state machine)</li>
+<li>planner_manager.cpp (Ego planner manager, used by fsm)</li>
+</ul>
+<blockquote>
+<p>  output is sent to screen</p>
+</blockquote>
+<p>:bulb: This is the core node of ego planner. It has many dependencies as shown below. (in its CMakeLists.txt)</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">catkin_package</span>(</span><br><span class="line">	INCLUDE_DIRS include</span><br><span class="line">	LIBRARIES ego_planner</span><br><span class="line">	CATKIN_DEPENDS plan_env path_searching bspline_opt traj_utils </span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p><strong>brief summary of the above packages</strong></p>
+<ul>
+<li><p><strong>plan_env</strong>: map reconstruction </p>
+</li>
+<li><p><strong>path_searching</strong>: dynamic A* search</p>
+</li>
+<li><p><strong>bspline_opt</strong>: bspline optimization</p>
+</li>
+<li><p><strong>traj_utils</strong>: PolynomialTraj related function and visualization</p>
+</li>
+</ul>
+<h3 id="Sub1-topic-odom-world-←-x2F-drone-arg-drone-id-arg-odometry-topic-←-“drone-0-visual-slam-x2F-odom”"><a href="#Sub1-topic-odom-world-←-x2F-drone-arg-drone-id-arg-odometry-topic-←-“drone-0-visual-slam-x2F-odom”" class="headerlink" title="Sub1 topic odom_world ← &#x2F;drone_$(arg drone_id)_$(arg odometry_topic) ← “drone_0_visual_slam&#x2F;odom”"></a>Sub1 topic odom_world ← &#x2F;drone_$(arg drone_id)_$(arg odometry_topic) ← “drone_0_visual_slam&#x2F;odom”</h3><p>ego_replan_fsm.cpp</p>
+<p><strong>&lt;nav_msgs::OdometryConstPtr&gt;</strong></p>
+<p>— <em>remap in advanced_param.launch</em></p>
+<p>with callback function <code>odometryCallback()</code></p>
+<p>which extract the received message to <code>odom_pos_</code> &amp; <code>odom_vel_</code> &amp; <code>odom_orient</code>_, then set <code>have_odom_</code> true</p>
+<h3 id="Sub2-topic-“-x2F-drone-drone-id-1-planning-x2F-swarm-trajs”"><a href="#Sub2-topic-“-x2F-drone-drone-id-1-planning-x2F-swarm-trajs”" class="headerlink" title="Sub2 topic “&#x2F;drone_$(drone_id - 1)_planning&#x2F;swarm_trajs”"></a>Sub2 topic “&#x2F;drone_$(drone_id - 1)_planning&#x2F;swarm_trajs”</h3><blockquote>
+<p>  ego_replan_fsm.cpp</p>
+</blockquote>
+<p>no use</p>
+<p>only subscribe to this topic when there are swarm, not single drone</p>
+<blockquote>
+<p>  4 topics below are all contained in <em>planner&#x2F;src&#x2F;grid_map.cpp</em></p>
+<ul>
+<li>grid_map&#x2F;depth &amp; grid_map&#x2F;cloud – provide topics about the surrounded environment</li>
+<li>grid_map&#x2F;odom &amp; grid_map&#x2F;pose – provide topics about their own position</li>
+</ul>
+<p>  In order to reconstruct the map, we need at least one topic from each type</p>
+<p>  Under simulation launch file，we use cloud &amp; odom topics；</p>
+<p>  Under realworld launch file，we use depth &amp; odom topics</p>
+<p>  In order to support RGB map reconstruction，we need to adjust data structures used by cloud &amp; depth topic</p>
+</blockquote>
+<h3 id="Sub3-topic-grid-map-x2F-depth-←-x2F-drone-arg-drone-id-arg-depth-topic-←-“drone-0-pcl-render-node-x2F-depth”"><a href="#Sub3-topic-grid-map-x2F-depth-←-x2F-drone-arg-drone-id-arg-depth-topic-←-“drone-0-pcl-render-node-x2F-depth”" class="headerlink" title="Sub3 topic grid_map&#x2F;depth ← &#x2F;drone_$(arg drone_id)_$(arg depth_topic) ← “drone_0_pcl_render_node&#x2F;depth”"></a>Sub3 topic grid_map&#x2F;depth ← &#x2F;drone_$(arg drone_id)_$(arg depth_topic) ← “drone_0_pcl_render_node&#x2F;depth”</h3><p>:bulb: Depth topic is only used in <strong>realworld exploration</strong></p>
+<p><strong>&lt;sensor_msgs::Image&gt;</strong></p>
+<p>— <em>remap in advanced_param.launch &amp; singhle_run_in_sim.launch</em></p>
+<p>by subscriber <code>depth_sub_</code> in file <em>grid_map.cpp</em></p>
+<p><em>IF</em> pose_type_ &#x3D;&#x3D; POSE_STAMPED: <strong>[← Chose in simlulation]</strong></p>
+<p>  Sync depth with pose in <code>sync_image_pose_ </code>with callback function <code>depthPoseCallback()</code></p>
+<p><em>ELIF</em> pose_type_ &#x3D;&#x3D; ODOMETRY: <strong>[← Chose in realworld]</strong></p>
+<p>  Sync depth with <code>odom </code>in <code>sync_image_odom_ </code>with callback function <code>depthOdomCallback()</code></p>
+<p><strong>How to figure out the correspondence</strong></p>
+<ul>
+<li><p>grid_map.cpp has <code>node_.param(&quot;grid_map/pose_type&quot;, mp_.pose_type_, 1)</code>;</p>
+<ul>
+<li><p>advanced_param.xml has<code> &lt;param name=&quot;grid_map/pose_type&quot; value=&quot;1&quot;/&gt;</code></p>
+</li>
+<li><p>advanced_param_exp.xml has<code>&lt;param name=&quot;grid_map/pose_type&quot; value=&quot;2&quot;/&gt;</code></p>
+</li>
+</ul>
+</li>
+<li><p><em>grid_map.h</em> has <code>enum &#123; POSE_STAMPED = 1, ODOMETRY = 2, INVALID_IDX = -10000 &#125;</code>;</p>
+</li>
+</ul>
+<p>However, in realworld exploration, we use grid_map&#x2F;depth instead of grid_map&#x2F;cloud, so the two callback functions above are never called in realworld exploration process.</p>
+<h3 id="Sub4-topic-grid-map-x2F-cloud-←-x2F-drone-arg-drone-id-arg-cloud-topic-←-“drone-0-pcl-render-node-x2F-cloud”"><a href="#Sub4-topic-grid-map-x2F-cloud-←-x2F-drone-arg-drone-id-arg-cloud-topic-←-“drone-0-pcl-render-node-x2F-cloud”" class="headerlink" title="Sub4 topic grid_map&#x2F;cloud ← &#x2F;drone_$(arg drone_id)_$(arg cloud_topic) ← “drone_0_pcl_render_node&#x2F;cloud”"></a>Sub4 topic grid_map&#x2F;cloud ← &#x2F;drone_$(arg drone_id)_$(arg cloud_topic) ← “drone_0_pcl_render_node&#x2F;cloud”</h3><p>:bulb: Cloud topic is only used in <strong>simulation</strong></p>
+<p><strong>&lt;sensor_msgs::PointCloud2&gt;</strong></p>
+<p>— <em>remap in advanced_param.launch &amp; singhle_run_in_sim.launch</em></p>
+<p>by subscriber <code>indep_cloud_sub_</code> in file <em>grid_map.cpp</em></p>
+<p>with callback function <code>GridMap::cloudCallback()</code></p>
+<p><strong>cloudCallback() function conclusion：</strong></p>
+<ul>
+<li><p>Change messages of type <code>sensor_msgs::PointCloud2</code> to latest_cloud of type <code>pcl::PointXYZRGB</code> (In order ot support RGB map reconstruction, I change <code>PointXYZ </code>to <code>PointXYZRGB </code>type)</p>
+</li>
+<li><p>Check if odom message is updated、if latest_cloud is null, if camera_pos is null</p>
+</li>
+<li><p>Iterate through all point in <code>latest_cloud</code>，inflate each point, set <code>md_.occupancy_buffer_inflate_[idx_inf] = rgb</code> (Originally it is 1，I changed it to <code>rgb </code>value)</p>
+</li>
+<li><p><code>idx_inf </code>is calculated by coordinate of <code>point </code>，I wonder why the author not use 3-d array, it is more intuitive</p>
+</li>
+</ul>
+<h3 id="Sub5-topic-grid-map-x2F-odom-←-x2F-drone-arg-drone-id-arg-odometry-topic-←-“drone-0-visual-slam-x2F-odom”"><a href="#Sub5-topic-grid-map-x2F-odom-←-x2F-drone-arg-drone-id-arg-odometry-topic-←-“drone-0-visual-slam-x2F-odom”" class="headerlink" title="Sub5 topic grid_map&#x2F;odom ← &#x2F;drone_$(arg drone_id)_$(arg odometry_topic) ← “drone_0_visual_slam&#x2F;odom”"></a>Sub5 topic grid_map&#x2F;odom ← &#x2F;drone_$(arg drone_id)_$(arg odometry_topic) ← “drone_0_visual_slam&#x2F;odom”</h3><p><strong>&lt;nav_msgs::Odometry&gt;</strong></p>
+<p>— <em>remap in advanced_param.launch &amp; singhle_run_in_sim.launch</em></p>
+<p>by subscriber odom_sub_ without callback function (Not separate callback functions，because <code>odom_sub_ </code>and  <code>depth_sub_ </code>is merged into <code>sync_image_odom_ </code>and callback together)</p>
+<p>or <code>indep_odom_sub_ </code>with callback function <code>GridMap::odomCallback()</code></p>
+<p><code>odomCallback()</code> simply extract <code>camera_pos </code>from <code>nav_msgs::OdometryConstPtr</code>and set <code>has_odom_ = true</code></p>
+<h3 id="Sub6-topic-grid-map-x2F-pose"><a href="#Sub6-topic-grid-map-x2F-pose" class="headerlink" title="Sub6 topic grid_map&#x2F;pose"></a>Sub6 topic grid_map&#x2F;pose</h3><p>TO DO</p>
+<p>:exclamation: In simulation, map reconstruction module (mainly in grid_map.cpp) uses “grid_map&#x2F;cloud”. In realworld, however, it uses “grid_map&#x2F;depth” . Why simulation cannot use “grid_map&#x2F;depth” ???</p>
+<h3 id="Sub7-topic-planning-x2F-broadcast-bspline-to-planner-←-“-x2F-broadcast-bspline”"><a href="#Sub7-topic-planning-x2F-broadcast-bspline-to-planner-←-“-x2F-broadcast-bspline”" class="headerlink" title="Sub7 topic planning&#x2F;broadcast_bspline_to_planner ← “&#x2F;broadcast_bspline”"></a>Sub7 topic planning&#x2F;broadcast_bspline_to_planner ← “&#x2F;broadcast_bspline”</h3><p>ego_replan_fsm.cpp</p>
+<p><strong>&lt;traj_utils::BsplinePtr&gt;</strong></p>
+<p>— <em>remap in advanced_param.launch</em></p>
+<p>with callback function <code>EGOReplanFSM::BroadcastBsplineCallback()</code></p>
+<p><strong>Brief Summary:</strong> TO DO</p>
+<h3 id="Sub8-topic-“-x2F-move-base-simple-x2F-goal”-or-“-x2F-traj-start-trigger”"><a href="#Sub8-topic-“-x2F-move-base-simple-x2F-goal”-or-“-x2F-traj-start-trigger”" class="headerlink" title="Sub8 topic “&#x2F;move_base_simple&#x2F;goal” or “&#x2F;traj_start_trigger”"></a>Sub8 topic “&#x2F;move_base_simple&#x2F;goal” or “&#x2F;traj_start_trigger”</h3><p>ego_replan_fsm.cpp</p>
+<p><strong>How I confirm the topic is the latter:</strong></p>
+<ul>
+<li>subscribe to which topic depends on value of target_type_, the value is got from:</li>
+<li>← <code>nh.param(&quot;fsm/flight_type&quot;, target_type_, -1);</code> (<em>ego_planner_fsm.cpp</em>)</li>
+<li>← <code>&lt;param name=&quot;fsm/flight_type&quot; value=&quot;$(arg flight_type)&quot; type=&quot;int&quot;/&gt;</code> (<em>advanced_param.xml</em>)</li>
+<li>← <code>&lt;arg name=&quot;flight_type&quot; value=&quot;2&quot; /&gt;</code> (<em>single_run_in_sim.launch</em>)</li>
+</ul>
+<p>which means <code>target_type_ == TARGET_TYPE::PRESET_TARGET</code>, so the real subscription is “&#x2F;traj_start_trigger”</p>
+<p><strong>&lt;geometry_msgs::PoseStampedPtr&gt;</strong></p>
+<p>with callback function <code>EGOReplanFSM::triggerCallback()</code></p>
+<p>which set<code> have_trigger_ = true</code>, and initialize <code>init_pt_</code></p>
+<h3 id="Pub1-topic-grid-map-x2F-occupancy"><a href="#Pub1-topic-grid-map-x2F-occupancy" class="headerlink" title="Pub1 topic grid_map&#x2F;occupancy"></a>Pub1 topic grid_map&#x2F;occupancy</h3><p>no use</p>
+<h3 id="Pub2-topic-grid-map-x2F-occupancy-inflate-→-“-x2F-drone-0-ego-planner-node-x2F-grid-map-x2F-occupancy-inflate”"><a href="#Pub2-topic-grid-map-x2F-occupancy-inflate-→-“-x2F-drone-0-ego-planner-node-x2F-grid-map-x2F-occupancy-inflate”" class="headerlink" title="Pub2 topic grid_map&#x2F;occupancy_inflate → “&#x2F;drone_0_ego_planner_node&#x2F;grid_map&#x2F;occupancy_inflate”"></a>Pub2 topic grid_map&#x2F;occupancy_inflate → “&#x2F;drone_0_ego_planner_node&#x2F;grid_map&#x2F;occupancy_inflate”</h3><p><strong>&lt;sensor_msgs::PointCloud2&gt;</strong></p>
+<p><em>— only convert from local node namespace to global</em></p>
+<p>:sunny: This is the reconstructed map that is shown in rviz</p>
+<p><code>visCallback()</code> includes <code>publishMapInflate()</code> and <code>publishMap()</code>;</p>
+<p>which publish grid_map&#x2F;occupancy and grid&#x2F;occupancy_inflate, only the former one is used</p>
+<h3 id="Pub3-topic-“-x2F-drone-drone-id-planning-x2F-swarm-trajs”"><a href="#Pub3-topic-“-x2F-drone-drone-id-planning-x2F-swarm-trajs”" class="headerlink" title="Pub3 topic “&#x2F;drone_$(drone_id)_planning&#x2F;swarm_trajs”"></a>Pub3 topic “&#x2F;drone_$(drone_id)_planning&#x2F;swarm_trajs”</h3><p><em>ego_replan_fsm.cpp</em></p>
+<p>no use</p>
+<h3 id="Pub4-topic-planning-x2F-broadcast-bspline-from-planner-→-“-x2F-broadcast-bspline”"><a href="#Pub4-topic-planning-x2F-broadcast-bspline-from-planner-→-“-x2F-broadcast-bspline”" class="headerlink" title="Pub4 topic planning&#x2F;broadcast_bspline_from_planner → “&#x2F;broadcast_bspline”"></a>Pub4 topic planning&#x2F;broadcast_bspline_from_planner → “&#x2F;broadcast_bspline”</h3><p><em>ego_replan_fsm.cpp</em></p>
+<p><strong>&lt;traj_utils::Bspline&gt;</strong></p>
+<p>— <em>remap in advanced_param.launch</em></p>
+<p>by publisher <code>broadcast_bspline_pub_ </code>in function <code>EGOReplanFSM::publishSwarmTrajs()</code></p>
+<p>which has no specific frequency, but is called in FSM</p>
+<h3 id="Pub5-topic-“planning-x2F-bspline”"><a href="#Pub5-topic-“planning-x2F-bspline”" class="headerlink" title="Pub5 topic “planning&#x2F;bspline”"></a>Pub5 topic “planning&#x2F;bspline”</h3><p>TO DO</p>
+<h3 id="Pub6-topic-“planning-x2F-data-display”"><a href="#Pub6-topic-“planning-x2F-data-display”" class="headerlink" title="Pub6 topic “planning&#x2F;data_display”"></a>Pub6 topic “planning&#x2F;data_display”</h3><p>TO DO</p>
+<h2 id="2-3-launch-node-ego-planner-x2F-traj-server-as-drone-arg-drone-id-traj-server-→-drone-0-traj-server"><a href="#2-3-launch-node-ego-planner-x2F-traj-server-as-drone-arg-drone-id-traj-server-→-drone-0-traj-server" class="headerlink" title="2.3 launch node ego_planner&#x2F;traj_server as [drone_$(arg drone_id)_traj_server] → [drone_0_traj_server]"></a>2.3 launch node ego_planner&#x2F;traj_server as [drone_$(arg drone_id)_traj_server] → [drone_0_traj_server]</h2><p>in source file <em>planner&#x2F;plan_manage&#x2F;traj_server.cpp</em></p>
+<blockquote>
+<p>  output is send to screen</p>
+</blockquote>
+<h3 id="Sub1-topic-planning-x2F-bspline-←-drone-arg-drone-id-planning-x2F-bspline-←-“drone-0-planning-x2F-bspline”"><a href="#Sub1-topic-planning-x2F-bspline-←-drone-arg-drone-id-planning-x2F-bspline-←-“drone-0-planning-x2F-bspline”" class="headerlink" title="Sub1 topic planning&#x2F;bspline ← drone_$(arg drone_id)_planning&#x2F;bspline ← “drone_0_planning&#x2F;bspline”"></a>Sub1 topic planning&#x2F;bspline ← drone_$(arg drone_id)_planning&#x2F;bspline ← “drone_0_planning&#x2F;bspline”</h3><p><strong>&lt;traj_utils::BsplineConstPtr&gt;</strong></p>
+<p>— <em>remap in single_run_in_sim.launch</em></p>
+<p>with callback function <code>bsplineCallback()</code></p>
+<h3 id="Pub1-topic-x2F-position-cmd-→-drone-arg-drone-id-planning-x2F-pos-cmd-→-“drone-0-planning-x2F-pos-cmd”"><a href="#Pub1-topic-x2F-position-cmd-→-drone-arg-drone-id-planning-x2F-pos-cmd-→-“drone-0-planning-x2F-pos-cmd”" class="headerlink" title="Pub1 topic &#x2F;position_cmd → drone_$(arg drone_id)_planning&#x2F;pos_cmd → “drone_0_planning&#x2F;pos_cmd”"></a>Pub1 topic &#x2F;position_cmd → drone_$(arg drone_id)_planning&#x2F;pos_cmd → “drone_0_planning&#x2F;pos_cmd”</h3><p><strong>&lt;quadrotor_msgs::PositionCommand&gt;</strong></p>
+<p>— <em>remap in single_run_in_sim.launch</em></p>
+<p>through publisher <code>pos_cmd_pub </code>in function <code>cmdCallback()</code>, which is callback function of Timer <code>cmd_timer</code>, frequency 100Hz</p>
+<p>data source is <code>cmd</code>, generated in <code>cmdCallback()</code></p>
+<p><strong>Brief Summary of cmdCallback()</strong>:</p>
+<ul>
+<li>check <code>receive_traj_ </code>to see if received bspline messages, variable defined in <code>bsplineCallback()</code></li>
+<li>if<code> curr time &lt; traj duration</code><ul>
+<li>then calculate<code> cmd.pos &amp; vel &amp; acc</code> by DeBoor Algorithm <code>evaluateDeBoorT()</code>. And calculate yaw by <code>calculate_yaw()</code> (a self-defined function)</li>
+<li>else, hover at the end point of the trajectory, <code>cmd.vel &amp; acc = 0</code>, <code>yaw </code>keep unchanged</li>
+</ul>
+</li>
+<li>combine variables above into <code>cmd</code>, and publish it through <code>pos_cmd_pub </code>to &#x2F;position_cmd</li>
+</ul>
+<h3 id="Node-Topic-Graph-1"><a href="#Node-Topic-Graph-1" class="headerlink" title="Node-Topic Graph"></a>Node-Topic Graph</h3><img src="/Ego-Planner-Reading-Note/node-traj_server.png" alt="node-traj_server" style="zoom:30%;" />
+
+<p>💡 B-spline curve is shaped by control points and basic functions. Basic functions are defiend by knot vector and curve order k, which influence the continuity and shape of the curve.</p>
+<p><a target="_blank" rel="noopener" href="https://web.mit.edu/hyperbook/Patrikalakis-Maekawa-Cho/node17.html">1.4.2 B-spline curve (mit.edu)</a></p>
+<h2 id="2-4-launch-xml-file-ego-planner-x2F-launch-x2F-simulator-xml"><a href="#2-4-launch-xml-file-ego-planner-x2F-launch-x2F-simulator-xml" class="headerlink" title="2.4 launch xml file ego_planner&#x2F;launch&#x2F;simulator.xml"></a>2.4 launch xml file ego_planner&#x2F;launch&#x2F;simulator.xml</h2><p>in which contains the following nodes:</p>
+<h2 id="2-4a-launch-node-poscmd-2-odom-x2F-poscmd-2-odom-as-drone-arg-drone-id-poscmd-2-odom-→-drone-0-poscmd-2-odom"><a href="#2-4a-launch-node-poscmd-2-odom-x2F-poscmd-2-odom-as-drone-arg-drone-id-poscmd-2-odom-→-drone-0-poscmd-2-odom" class="headerlink" title="2.4a launch node poscmd_2_odom&#x2F;poscmd_2_odom as drone_$(arg drone_id)_poscmd_2_odom → [drone_0_poscmd_2_odom]"></a>2.4a launch node poscmd_2_odom&#x2F;poscmd_2_odom as drone_$(arg drone_id)_poscmd_2_odom → [drone_0_poscmd_2_odom]</h2><p>node source file is <em>uav_simulator&#x2F;fake_drone&#x2F;poscmd_2_odom.cpp</em></p>
+<h3 id="Sub1-topic-command-←-drone-arg-drone-id-planning-x2F-pos-cmd-←-“drone-0-planning-x2F-pos-cmd”"><a href="#Sub1-topic-command-←-drone-arg-drone-id-planning-x2F-pos-cmd-←-“drone-0-planning-x2F-pos-cmd”" class="headerlink" title="Sub1 topic command ← drone_$(arg drone_id)_planning&#x2F;pos_cmd ← “drone_0_planning&#x2F;pos_cmd”"></a>Sub1 topic command ← drone_$(arg drone_id)_planning&#x2F;pos_cmd ← “drone_0_planning&#x2F;pos_cmd”</h3><p><strong>&lt;quadrotor_msgs::PositionCommand&gt;</strong></p>
+<p>— <em>remap in simulator.xml</em></p>
+<p>with callback function <code>rcvPosCmdCallBack()</code>, which is called by <code>ros::spinOnce()</code> at a frequency of 100Hz.</p>
+<h3 id="Pub1-topic-odometry-→-drone-arg-drone-id-arg-odometry-topic-→-“drone-0-visual-slam-x2F-odom”"><a href="#Pub1-topic-odometry-→-drone-arg-drone-id-arg-odometry-topic-→-“drone-0-visual-slam-x2F-odom”" class="headerlink" title="Pub1 topic odometry → drone_$(arg drone_id)_$(arg odometry_topic) → “drone_0_visual_slam&#x2F;odom”"></a>Pub1 topic odometry → drone_$(arg drone_id)_$(arg odometry_topic) → “drone_0_visual_slam&#x2F;odom”</h3><p><strong>&lt;nav_msgs::Odometry&gt;</strong></p>
+<p>— <em>remap in simulator.xml</em></p>
+<p>through publisher _odom_pub in function pubOdom(), which runs in a while loop at a frequency of 100Hz.</p>
+<h3 id="Node-Topic-Graph-2"><a href="#Node-Topic-Graph-2" class="headerlink" title="Node-Topic Graph"></a>Node-Topic Graph</h3><img src="/Ego-Planner-Reading-Note/node-poscmd.png" alt="node-poscmd" style="zoom:33%;" />
+
+<h2 id="2-4b-launch-node-odom-visualization-x2F-odom-visualization-as-drone-arg-drone-id-odom-visualization-→-drone-0-odom-visualization"><a href="#2-4b-launch-node-odom-visualization-x2F-odom-visualization-as-drone-arg-drone-id-odom-visualization-→-drone-0-odom-visualization" class="headerlink" title="2.4b launch node odom_visualization&#x2F;odom_visualization as drone_$(arg drone_id)_odom_visualization → [drone_0_odom_visualization]"></a>2.4b launch node odom_visualization&#x2F;odom_visualization as drone_$(arg drone_id)_odom_visualization → [drone_0_odom_visualization]</h2><p>node source file is uav&#x2F;simulator&#x2F;Utils&#x2F;odom_visualization&#x2F;odom_visualization.cpp</p>
+<h3 id="Sub1-topic-odom-←-drone-arg-drone-id-visual-slam-x2F-odom-←-“drone-0-visual-slam-x2F-odom”"><a href="#Sub1-topic-odom-←-drone-arg-drone-id-visual-slam-x2F-odom-←-“drone-0-visual-slam-x2F-odom”" class="headerlink" title="Sub1 topic odom ← drone_$(arg drone_id)_visual_slam&#x2F;odom ← “drone_0_visual_slam&#x2F;odom”"></a>Sub1 topic odom ← drone_$(arg drone_id)_visual_slam&#x2F;odom ← “drone_0_visual_slam&#x2F;odom”</h3><p>with callback function odom_callback() called by ros::spin()</p>
+<p>💡 Difference between ros::spin() &amp; ros::spinOnce() and usage of ros::Rate(), see at [Callbacks and Spinning - ROS Wiki](<a target="_blank" rel="noopener" href="https://wiki.ros.org/roscpp/Overview/Callbacks">https://wiki.ros.org/roscpp/Overview/Callbacks</a> and Spinning)</p>
+<h3 id="Sub2-topic-cmd"><a href="#Sub2-topic-cmd" class="headerlink" title="Sub2 topic cmd"></a>Sub2 topic cmd</h3><p>no use</p>
+<h3 id="Pub1-topic-robot-→-“drone-0-odom-visualization-x2F-robot”"><a href="#Pub1-topic-robot-→-“drone-0-odom-visualization-x2F-robot”" class="headerlink" title="Pub1 topic robot → “drone_0_odom_visualization&#x2F;robot”"></a>Pub1 topic robot → “drone_0_odom_visualization&#x2F;robot”</h3><p><strong>&lt;visualization_msgs::Marker&gt;</strong></p>
+<p>by publisher meshPub, in function <code>odom_callback()</code> called by <code>ros::spin()</code></p>
+<p>💡 If topic begin with “&#x2F;”, then it’s a global topic, other nodes can subscribe to it by its original name. Otherwise, it’s a local variable, other nodes need to subscribe to “<node_name>&#x2F;<topic_name>”</p>
+<p>❓ <strong>Need Verification</strong>: It seems that in xml and launch files, every topic name without a “~” prefix is regarded as global topic.</p>
+<h3 id="Pub2-topic-path-→-“drone-0-odom-visualization-x2F-path”"><a href="#Pub2-topic-path-→-“drone-0-odom-visualization-x2F-path”" class="headerlink" title="Pub2 topic path → “drone_0_odom_visualization&#x2F;path”"></a>Pub2 topic path → “drone_0_odom_visualization&#x2F;path”</h3><p><strong>&lt;nav_msgs::Path&gt;</strong></p>
+<p>by publisher pathPub, in function <code>odom_callback()</code> called by <code>ros::spin()</code></p>
+<h3 id="Pub3…N-topic-pose-velocity-covariance…"><a href="#Pub3…N-topic-pose-velocity-covariance…" class="headerlink" title="Pub3…N topic pose, velocity, covariance…"></a>Pub3…N topic pose, velocity, covariance…</h3><p>no use</p>
+<p>💡 If a published topic is not subscribed by any node, it will not be visible on the rqt_graph. However, if a topic is subscribed by rviz node, although there is not a connecting line from topic to rviz, the topic will be visible.</p>
+<p>❓ The rviz node in rqt_graph is shown as n__rviz and only connect a line to ‘&#x2F;tf’ (cuboid like stuff). Don’t know why.</p>
+<h3 id="Pub4-tf-Transform-“-x2F-tf”"><a href="#Pub4-tf-Transform-“-x2F-tf”" class="headerlink" title="Pub4 tf::Transform “&#x2F;tf”"></a>Pub4 tf::Transform “&#x2F;tf”</h3><p><strong><a href="tf::StampedTransform">tf::StampedTransform</a></strong></p>
+<p>by <code>tf::TransformBroadcaster* broadcaster</code>, in function <code>odom_callback() </code>called by <code>ros::spin()</code></p>
+<p>from <em>line 363 of odom_visualization.cpp</em></p>
+<p>🔆 This is not a common ros topic, but do provide transform information to rviz. Need to learn more if time allows.</p>
+<img src="/Ego-Planner-Reading-Note/node-odom_visualization.png" alt="node-odom_visualization" style="zoom:30%;" />
+
+<h2 id="2-4c-launch-node-local-sensing-node-x2F-pcl-render-node-as-drone-arg-drone-id-pcl-render-node-→-drone-0-pcl-render-node"><a href="#2-4c-launch-node-local-sensing-node-x2F-pcl-render-node-as-drone-arg-drone-id-pcl-render-node-→-drone-0-pcl-render-node" class="headerlink" title="2.4c launch node local_sensing_node&#x2F;pcl_render_node as drone_$(arg drone_id)_pcl_render_node → [drone_0_pcl_render_node]"></a>2.4c launch node local_sensing_node&#x2F;pcl_render_node as drone_$(arg drone_id)_pcl_render_node → [drone_0_pcl_render_node]</h2><p>node source file depends on whether to enable cuda,</p>
+<p>if so, use <em>uav_simulator&#x2F;local_sensing&#x2F;pcl_render_node.cpp</em>;</p>
+<p>else use uav_simulator&#x2F;local_sensing&#x2F;pointcloud_render_node.cpp</p>
+<p>I change the two file names to <em>pcl_render_node_cuda.cpp</em> and <em>pcl_render_node_cpu.cpp</em> in <a target="_blank" rel="noopener" href="https://github.com/yang-d19/ego-planner-pro">yang-d19&#x2F;ego-planner-pro: Based on ego planner, enabled colored maping (github.com)</a></p>
+<blockquote>
+<p>  Send output to screen for review, by specify [output &#x3D; “screen”]</p>
+</blockquote>
+</div><div class="article-licensing box"><div class="licensing-title"><p>Ego Planner Reading Note</p><p><a href="https://yang-d19.github.io/Ego-Planner-Reading-Note/">https://yang-d19.github.io/Ego-Planner-Reading-Note/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>Author</h6><p>Ding Yang</p></div></div><div class="level-item is-narrow"><div><h6>Posted on</h6><p>2023-10-03</p></div></div><div class="level-item is-narrow"><div><h6>Updated on</h6><p>2024-01-27</p></div></div><div class="level-item is-narrow"><div><h6>Licensed under</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/Ego-Planner/">Ego Planner</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2023%E7%A7%8B-%E5%AD%A6%E6%9C%9F%E6%80%BB%E7%BB%93/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">2023秋-学期总结</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/v2rayA%E6%95%99%E7%A8%8B/"><span class="level-item">v2rayA教程</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/img/yahaha.jpg" alt="Ding Yang"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Ding Yang</p><p class="is-size-6 is-block">Graduate Student</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>Ithaca, NY, United States</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">Posts</p><a href="/archives"><p class="title">26</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Categories</p><a href="/categories"><p class="title">3</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Tags</p><a href="/tags"><p class="title">23</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/yang-d19" target="_blank" rel="noopener">Follow</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/yang-d19"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Email" href="mailto:yangding19thu@outlook.com"><i class="fa fa-envelope"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Wechat" href="/img/wechat.jpg"><i class="fab fa-weixin"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/yangdin13606764"><i class="fab fa-twitter"></i></a></div></div></div><!--!--><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">Links</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">Categories</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/Art/"><span class="level-start"><span class="level-item">Art</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Daily/"><span class="level-start"><span class="level-item">Daily</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/Technology/"><span class="level-start"><span class="level-item">Technology</span></span><span class="level-end"><span class="level-item tag">20</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">Recents</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-01-27T07:39:59.000Z">2024-01-27</time></p><p class="title"><a href="/2023%E7%A7%8B-%E5%AD%A6%E6%9C%9F%E6%80%BB%E7%BB%93/">2023秋-学期总结</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-10-03T19:46:57.000Z">2023-10-03</time></p><p class="title"><a href="/Ego-Planner-Reading-Note/">Ego Planner Reading Note</a></p><p class="categories"><a href="/categories/Technology/">Technology</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-09-19T04:00:00.000Z">2023-09-19</time></p><p class="title"><a href="/v2rayA%E6%95%99%E7%A8%8B/">v2rayA教程</a></p><p class="categories"><a href="/categories/Technology/">Technology</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2022-10-05T04:00:00.000Z">2022-10-05</time></p><p class="title"><a href="/%E4%BD%BF%E7%94%A8%E7%BD%91%E7%BA%BF%E8%BF%9E%E6%8E%A5%E6%A0%91%E8%8E%93%E6%B4%BE%E5%BC%80%E5%8F%91/">使用网线连接树莓派开发</a></p><p class="categories"><a href="/categories/Technology/">Technology</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2022-09-28T04:00:00.000Z">2022-09-28</time></p><p class="title"><a href="/WSL2%E6%90%AD%E5%BB%BAv2Ray%E4%BB%A3%E7%90%86/">WSL2搭建v2Ray代理</a></p><p class="categories"><a href="/categories/Technology/">Technology</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">Archives</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2024/01/"><span class="level-start"><span class="level-item">January 2024</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/10/"><span class="level-start"><span class="level-item">October 2023</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/09/"><span class="level-start"><span class="level-item">September 2023</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/10/"><span class="level-start"><span class="level-item">October 2022</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/09/"><span class="level-start"><span class="level-item">September 2022</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/08/"><span class="level-start"><span class="level-item">August 2022</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/05/"><span class="level-start"><span class="level-item">May 2022</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/02/"><span class="level-start"><span class="level-item">February 2022</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/01/"><span class="level-start"><span class="level-item">January 2022</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/10/"><span class="level-start"><span class="level-item">October 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/08/"><span class="level-start"><span class="level-item">August 2021</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/07/"><span class="level-start"><span class="level-item">July 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/06/"><span class="level-start"><span class="level-item">June 2021</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/02/"><span class="level-start"><span class="level-item">February 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/01/"><span class="level-start"><span class="level-item">January 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/01/"><span class="level-start"><span class="level-item">January 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">Tags</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/Codeforces/"><span class="tag">Codeforces</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Ego-Planner/"><span class="tag">Ego Planner</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Git/"><span class="tag">Git</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Hexo/"><span class="tag">Hexo</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Jetson-Nano/"><span class="tag">Jetson Nano</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Linux/"><span class="tag">Linux</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/PlatformIO/"><span class="tag">PlatformIO</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/STM32/"><span class="tag">STM32</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/STM32CubeMX/"><span class="tag">STM32CubeMX</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Tensorflow/"><span class="tag">Tensorflow</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/VSCode/"><span class="tag">VSCode</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Vim/"><span class="tag">Vim</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/WSL/"><span class="tag">WSL</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/WSL2/"><span class="tag">WSL2</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%89%8D%E7%AB%AF/"><span class="tag">前端</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/"><span class="tag">安装教程</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%80%BB%E7%BB%93/"><span class="tag">总结</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%97%A5%E5%B8%B8/"><span class="tag">日常</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/"><span class="tag">树莓派</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%95%99%E6%A1%A3%E5%A4%87%E6%9F%A5/"><span class="tag">留档备查</span><span class="tag">11</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%AC%94%E8%AE%B0/"><span class="tag">笔记</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%AE%97%E6%B3%95/"><span class="tag">算法</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BB%98%E7%94%BB/"><span class="tag">绘画</span><span class="tag">1</span></a></div></div></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/yoris.ico" alt="Ding&#039;s Blog" height="28"></a><p class="is-size-7"><span>&copy; 2024 Ding Yang</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="Back to top" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "This website uses cookies to improve your experience.",
+          dismiss: "Got it!",
+          allow: "Allow cookies",
+          deny: "Decline",
+          link: "Learn more",
+          policy: "Cookie Policy",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="Type something..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"Type something...","untitled":"(Untitled)","posts":"Posts","pages":"Pages","categories":"Categories","tags":"Tags"});
+        });</script></body></html>

@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Git 操作简介 - Ding&#039;s Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="Ding&#039;s Blog"><meta name="msapplication-TileImage" content="/img/yoris.ico"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Ding&#039;s Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="此简易教程的初稿写于大二寒假，用于科协的 FC18 项目开发组的代码远程管理，因为涉及 Unity 项目，所以使用了 Git LFS 和 YAML Merge 等比较高级的工具。 在大三暑假时做过一次修改，用于管理电设小学期团队的机械臂项目 JetArm 的合作开发。新版删除了涉及 Unity 的部分，并做了精简优化，这里发出来作为存档，以便随时参考。 注意：该教程使用 GitLab，但是与 Gi"><meta property="og:type" content="blog"><meta property="og:title" content="Git 操作简介"><meta property="og:url" content="https://yang-d19.github.io/Git-%E6%93%8D%E4%BD%9C%E7%AE%80%E4%BB%8B/"><meta property="og:site_name" content="Ding&#039;s Blog"><meta property="og:description" content="此简易教程的初稿写于大二寒假，用于科协的 FC18 项目开发组的代码远程管理，因为涉及 Unity 项目，所以使用了 Git LFS 和 YAML Merge 等比较高级的工具。 在大三暑假时做过一次修改，用于管理电设小学期团队的机械臂项目 JetArm 的合作开发。新版删除了涉及 Unity 的部分，并做了精简优化，这里发出来作为存档，以便随时参考。 注意：该教程使用 GitLab，但是与 Gi"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://yang-d19.github.io/Git-操作简介/setting.png"><meta property="og:image" content="https://yang-d19.github.io/Git-%E6%93%8D%E4%BD%9C%E7%AE%80%E4%BB%8B/created.png"><meta property="article:published_time" content="2021-06-29T07:00:00.000Z"><meta property="article:modified_time" content="2025-04-21T05:45:53.812Z"><meta property="article:author" content="Ding Yang"><meta property="article:tag" content="Git"><meta property="article:tag" content="留档备查"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://yang-d19.github.io/Git-操作简介/setting.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://yang-d19.github.io/Git-%E6%93%8D%E4%BD%9C%E7%AE%80%E4%BB%8B/"},"headline":"Git 操作简介","image":["https://yang-d19.github.io/Git-操作简介/setting.png","https://yang-d19.github.io/Git-%E6%93%8D%E4%BD%9C%E7%AE%80%E4%BB%8B/created.png"],"datePublished":"2021-06-29T07:00:00.000Z","dateModified":"2025-04-21T05:45:53.812Z","author":{"@type":"Person","name":"Ding Yang"},"publisher":{"@type":"Organization","name":"Ding's Blog","logo":{"@type":"ImageObject","url":"https://yang-d19.github.io/img/yoris.ico"}},"description":"此简易教程的初稿写于大二寒假，用于科协的 FC18 项目开发组的代码远程管理，因为涉及 Unity 项目，所以使用了 Git LFS 和 YAML Merge 等比较高级的工具。 在大三暑假时做过一次修改，用于管理电设小学期团队的机械臂项目 JetArm 的合作开发。新版删除了涉及 Unity 的部分，并做了精简优化，这里发出来作为存档，以便随时参考。 注意：该教程使用 GitLab，但是与 Gi"}</script><link rel="canonical" href="https://yang-d19.github.io/Git-%E6%93%8D%E4%BD%9C%E7%AE%80%E4%BB%8B/"><link rel="icon" href="/img/yoris.ico"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/yoris.ico" alt="Ding&#039;s Blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2021-06-29T07:00:00.000Z" title="6/29/2021, 12:00:00 AM">2021-06-29</time></span><span class="level-item">Updated&nbsp;<time dateTime="2025-04-21T05:45:53.812Z" title="4/20/2025, 10:45:53 PM">2025-04-20</time></span><span class="level-item"><a class="link-muted" href="/categories/Technology/">Technology</a></span><span class="level-item">11 minutes read (About 1699 words)</span></div></div><h1 class="title is-3 is-size-4-mobile">Git 操作简介</h1><div class="content"><p>此简易教程的初稿写于大二寒假，用于科协的 FC18 项目开发组的代码远程管理，因为涉及 Unity 项目，所以使用了 Git LFS 和 YAML Merge 等比较高级的工具。</p>
+<p>在大三暑假时做过一次修改，用于管理电设小学期团队的机械臂项目 JetArm 的合作开发。新版删除了涉及 Unity 的部分，并做了精简优化，这里发出来作为存档，以便随时参考。</p>
+<p><strong>注意：该教程使用 GitLab，但是与 GitHub 的操作差不多，可以作为参考</strong></p>
+<span id="more"></span>
+
+<h1 id="Git简易教程"><a href="#Git简易教程" class="headerlink" title="Git简易教程"></a>Git简易教程</h1><p><em>作者：杨鼎</em></p>
+<p><em>初版日期：2021&#x2F;1&#x2F;23</em></p>
+<p><em>修改日期：2021&#x2F;6&#x2F;29</em></p>
+<hr>
+<p>注：此为简易教程，详细学习可以参考以下两个网站：</p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/git/git-tutorial.html">https://www.runoob.com/git/git-tutorial.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/896043488029600">https://www.liaoxuefeng.com/wiki/896043488029600</a></p>
+<hr>
+<h2 id="CASE-1：准备工作"><a href="#CASE-1：准备工作" class="headerlink" title="CASE 1：准备工作"></a>CASE 1：准备工作</h2><h3 id="1、Git-下载"><a href="#1、Git-下载" class="headerlink" title="1、Git 下载"></a>1、Git 下载</h3><ul>
+<li>方法一：从官网 <a target="_blank" rel="noopener" href="https://git-scm.com/downloads">https://git-scm.com/downloads</a> 下载（速度比较慢，建议挂VPN）</li>
+<li>方法二：从我的清华云盘 <a target="_blank" rel="noopener" href="https://cloud.tsinghua.edu.cn/f/68b3db8ad9b1456b815a/">https://cloud.tsinghua.edu.cn/f/68b3db8ad9b1456b815a/</a> 下载</li>
+</ul>
+<h3 id="2、Git-安装"><a href="#2、Git-安装" class="headerlink" title="2、Git 安装"></a>2、Git 安装</h3><p>安装过程中会有很多选项，看得懂的部分可以自定义，看不懂的就默认好了。</p>
+<h3 id="3、Git-简介"><a href="#3、Git-简介" class="headerlink" title="3、Git 简介"></a>3、Git 简介</h3><p>Git是分布式版本控制系统，每个人的电脑中都有完整的版本库。</p>
+<p>3个区的概念：</p>
+<ul>
+<li>工作区：在电脑中能看到文件和目录。</li>
+<li>暂存区：工作区到版本库中间的缓冲，多次暂存，一次提交。</li>
+<li>版本库：检查完毕，正式提交的内容会存到版本库。</li>
+</ul>
+<h3 id="4、注册GitLab账号"><a href="#4、注册GitLab账号" class="headerlink" title="4、注册GitLab账号"></a>4、注册GitLab账号</h3><p>大家都有并且我已经把大家拉进项目开发组了</p>
+<h3 id="5、设置Personal-Access-Tokens"><a href="#5、设置Personal-Access-Tokens" class="headerlink" title="5、设置Personal Access Tokens"></a>5、设置Personal Access Tokens</h3><ul>
+<li>进入GitLab，点击右上角人像，选择<code>Settings</code></li>
+</ul>
+<img src="/Git-操作简介/setting.png" alt="setting" style="zoom: 33%;" />
+
+<ul>
+<li>进入<code>Access Tokens</code>界面，输入用户名（随意取），勾选下面全部选项，点<code>Create personal access token</code></li>
+</ul>
+<p>![user setting](&#x2F;Git-操作简介&#x2F;user setting.png)</p>
+<ul>
+<li>别忘了将生成的密钥保存下来</li>
+</ul>
+<p><img src="/Git-%E6%93%8D%E4%BD%9C%E7%AE%80%E4%BB%8B/created.png" alt="created"></p>
+<ul>
+<li>以后，首次通过https方式克隆远程仓库时，需要输入用户名和密钥（就是上面新建的）来证明身份，以后进行远程访问的操作就不需要重复输入了</li>
+</ul>
+<h3 id="6、添加提交代码时使用的用户名和邮箱"><a href="#6、添加提交代码时使用的用户名和邮箱" class="headerlink" title="6、添加提交代码时使用的用户名和邮箱"></a>6、添加提交代码时使用的用户名和邮箱</h3><p>打开 Git Bash，输入以下命令（只需要设置一次）</p>
+<ul>
+<li><p>设置用户名，<code>git config --global user.name &quot;你的姓名&quot;</code></p>
+<p>例如 <code>git config --global user.name &quot;Alex&quot;</code></p>
+</li>
+<li><p>设置邮箱， <code>git config --global user.email 你的邮箱</code></p>
+<p>例如 <code>git config --global user.email Alex123@qq.com</code></p>
+</li>
+</ul>
+<h2 id="CASE-2：从远程仓库克隆到本地开发"><a href="#CASE-2：从远程仓库克隆到本地开发" class="headerlink" title="CASE 2：从远程仓库克隆到本地开发"></a>CASE 2：从远程仓库克隆到本地开发</h2><p><em>适用情形：已有远程仓库，需要将仓库中的代码克隆到本地进行开发。</em></p>
+<h3 id="1、克隆远程仓库到本地"><a href="#1、克隆远程仓库到本地" class="headerlink" title="1、克隆远程仓库到本地"></a>1、克隆远程仓库到本地</h3><p>在你打算存放本地仓库的文件夹下，右键打开<code>Git Bash </code>命令行窗口。</p>
+<p>输入<code>git clone https://git.tsinghua.edu.cn/yang-d19/jetarm.git</code>，clone 后面的就是本项目的地址。敲回车，之后远程仓库就被克隆到本地了。</p>
+<p>你在当前文件夹下可以看到新的本地仓库文件夹<code>jetarm</code>。</p>
+<h3 id="2、修改"><a href="#2、修改" class="headerlink" title="2、修改"></a>2、修改</h3><p>进入克隆出来的本地仓库，打开<code>Git Bash</code>，随便添加一点什么，比如新建一个<code>test.txt</code>，然后在里面写一句<code>hello world</code>，保存并关闭，此时工作区就被修改了。在命令行中输入<code>git status</code>，可以查看当前状态，应有提示<code>test.txt</code>还未被添加。</p>
+<h3 id="3、暂存"><a href="#3、暂存" class="headerlink" title="3、暂存"></a>3、暂存</h3><p><code>git add . </code>将工作区中的修改添加到暂存区，这句命令中的<code>.</code>表示所有文件，也可以单独指明添加哪个文件，如<code>git add test.txt</code>。此时再用<code>git status</code>查看状态，应有提示<code>test.txt</code>还未被提交。</p>
+<h3 id="4、提交"><a href="#4、提交" class="headerlink" title="4、提交"></a>4、提交</h3><p><code>git commit -m &quot;说明&quot;</code>，例如<code>git commit -m &quot;add a new file&quot;</code>，暂存区的更改就被添加到版本库了。此时再输入<code>git status</code>查看状态，应有提示本地分支还未被推送到远程仓库。</p>
+<h3 id="5、推送"><a href="#5、推送" class="headerlink" title="5、推送"></a>5、推送</h3><p><code>git push</code>，将本地分支推送到远程仓库，此时用<code>git status</code>查看状态，会发现所有更改均已被提交，且本地与远程是同步的。</p>
+<h2 id="CASE-3：将本地代码同步到远程仓库"><a href="#CASE-3：将本地代码同步到远程仓库" class="headerlink" title="CASE 3：将本地代码同步到远程仓库"></a>CASE 3：将本地代码同步到远程仓库</h2><p><em>适用情形：远程仓库是空的，需将本地代码推送到远程仓库，让队友在你的代码基础上开发。</em></p>
+<h3 id="1、与远程仓库连接"><a href="#1、与远程仓库连接" class="headerlink" title="1、与远程仓库连接"></a>1、与远程仓库连接</h3><p><code>git init</code> 初始化本地仓库</p>
+<p><code>git remote add origin https://git.tsinghua.edu.cn/yang-d19/jetarm.git</code>，origin 后面的就是远程仓库地址，完成本地仓库与远程仓库的连接。</p>
+<h3 id="2、暂存"><a href="#2、暂存" class="headerlink" title="2、暂存"></a>2、暂存</h3><p><code>git add .</code> 添加所有文件到暂存区。</p>
+<h3 id="3、提交"><a href="#3、提交" class="headerlink" title="3、提交"></a>3、提交</h3><p><code>git commit -m 说明</code>，例如<code>git commit -m &quot;Initialize&quot;</code>，添加所有文件到版本库。</p>
+<h3 id="4、推送"><a href="#4、推送" class="headerlink" title="4、推送"></a>4、推送</h3><p><code>git push</code>，推送本地代码到远端。</p>
+<h2 id="CASE-4：日常修改及提交"><a href="#CASE-4：日常修改及提交" class="headerlink" title="CASE 4：日常修改及提交"></a>CASE 4：日常修改及提交</h2><p><code>git pull</code>，确保拉取远程仓库中最新的代码，</p>
+<p>改完了之后<code>git commit -a -m 说明</code>，暂存并提交</p>
+<p><code>git push</code>，推送到远程仓库</p>
+<h2 id="CASE-5：解决合并冲突"><a href="#CASE-5：解决合并冲突" class="headerlink" title="CASE 5：解决合并冲突"></a>CASE 5：解决合并冲突</h2><p><em>适用情形：两人基于相同的版本修改代码，对方比你先将修改推送到远程仓库，此时你在本地的暂存和提交操作均可执行，但是推送到远程仓库时会报错。</em></p>
+<h3 id="1、将远程仓库中的代码拉取到本地"><a href="#1、将远程仓库中的代码拉取到本地" class="headerlink" title="1、将远程仓库中的代码拉取到本地"></a>1、将远程仓库中的代码拉取到本地</h3><p><code>git pull</code>拉取远程代码到本地并尝试自动合并。</p>
+<p><code>git pull</code>是<code>git fetch</code>和<code>git merge FETCH_HEAD</code>命令的合体，拉取远程代码到本地后，Git会先尝试自动合并冲突，如果两人的修改不在一个文件中，或者在一个文件中，但互不影响，自动合并就是成功的，此时应当没有报错，直接跳转到第3步；否则进入第2步。</p>
+<h3 id="2、手动解决冲突"><a href="#2、手动解决冲突" class="headerlink" title="2、手动解决冲突"></a>2、手动解决冲突</h3><p>用编辑器如 VSCode 进入有冲突的文件，查找用<code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>，<code>=======</code>，<code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>这样的字符串包围的代码块，删掉对方或自己的改动，或者综合两者以解决冲突，保存并退出。</p>
+<h3 id="3、暂存且提交"><a href="#3、暂存且提交" class="headerlink" title="3、暂存且提交"></a>3、暂存且提交</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -a -m &quot;说明&quot;`，例如`git commit -a -m &quot;resolve merge conflits&quot;</span><br></pre></td></tr></table></figure>
+
+<p>这句命令等效于 <code>git add .</code> 和 <code>git commit -m “说明” </code>两句命令的综合</p>
+<h3 id="4、推送到远端"><a href="#4、推送到远端" class="headerlink" title="4、推送到远端"></a>4、推送到远端</h3><p><code>git push</code>，此时应当没有问题了。</p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>Git 操作简介</p><p><a href="https://yang-d19.github.io/Git-操作简介/">https://yang-d19.github.io/Git-操作简介/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>Author</h6><p>Ding Yang</p></div></div><div class="level-item is-narrow"><div><h6>Posted on</h6><p>2021-06-29</p></div></div><div class="level-item is-narrow"><div><h6>Updated on</h6><p>2025-04-20</p></div></div><div class="level-item is-narrow"><div><h6>Licensed under</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/Git/">Git</a><a class="link-muted mr-2" rel="tag" href="/tags/%E7%95%99%E6%A1%A3%E5%A4%87%E6%9F%A5/">留档备查</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/Jetson-Nano-%E5%AE%89%E8%A3%85-Tensorflow2/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">Jetson Nano 安装 Tensorflow2</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/Windows-%E4%B8%8B%E4%BD%BF%E7%94%A8-Anaconda-%E5%AE%89%E8%A3%85-Tensorflow2/"><span class="level-item">Windows 下使用 Anaconda 安装 Tensorflow2</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/img/yahaha.jpg" alt="Ding Yang"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Ding Yang</p><p class="is-size-6 is-block">Software Engineer</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>San Jose, CA, United States</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">Posts</p><a href="/archives"><p class="title">25</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Categories</p><a href="/categories"><p class="title">3</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Tags</p><a href="/tags"><p class="title">25</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/yang-d19" target="_blank" rel="noopener">Follow</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/yang-d19"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Email" href="mailto:dingtc01@gmail.com"><i class="fa fa-envelope"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Wechat" href="/img/wechat.jpg"><i class="fab fa-weixin"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Linkedin" href="https://www.linkedin.com/in/ding-yang-829248219/"><i class="fab fa-linkedin"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Instagram" href="https://www.instagram.com/dingyang1698/"><i class="fab fa-instagram"></i></a></div></div></div><!--!--><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">Links</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">Categories</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/Art/"><span class="level-start"><span class="level-item">Art</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Daily/"><span class="level-start"><span class="level-item">Daily</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/Technology/"><span class="level-start"><span class="level-item">Technology</span></span><span class="level-end"><span class="level-item tag">21</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">Recents</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-01-30T13:20:53.000Z">2024-01-30</time></p><p class="title"><a href="/Intelligent-3D-LED-Smart-Alarm-Clock/">Intelligent 3D LED Smart Alarm Clock</a></p><p class="categories"><a href="/categories/Technology/">Technology</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2024-01-27T10:39:59.000Z">2024-01-27</time></p><p class="title"><a href="/2023%E7%A7%8B-%E5%AD%A6%E6%9C%9F%E6%80%BB%E7%BB%93/">2023秋-学期总结</a></p><p class="categories"><a href="/categories/Daily/">Daily</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-09-19T07:00:00.000Z">2023-09-19</time></p><p class="title"><a href="/v2rayA%E6%95%99%E7%A8%8B/">v2rayA教程</a></p><p class="categories"><a href="/categories/Technology/">Technology</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2022-10-05T07:00:00.000Z">2022-10-05</time></p><p class="title"><a href="/%E4%BD%BF%E7%94%A8%E7%BD%91%E7%BA%BF%E8%BF%9E%E6%8E%A5%E6%A0%91%E8%8E%93%E6%B4%BE%E5%BC%80%E5%8F%91/">使用网线连接树莓派开发</a></p><p class="categories"><a href="/categories/Technology/">Technology</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2022-09-28T07:00:00.000Z">2022-09-28</time></p><p class="title"><a href="/WSL2%E6%90%AD%E5%BB%BAv2Ray%E4%BB%A3%E7%90%86/">WSL2搭建v2Ray代理</a></p><p class="categories"><a href="/categories/Technology/">Technology</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">Archives</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2024/01/"><span class="level-start"><span class="level-item">January 2024</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/09/"><span class="level-start"><span class="level-item">September 2023</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/10/"><span class="level-start"><span class="level-item">October 2022</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/09/"><span class="level-start"><span class="level-item">September 2022</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/08/"><span class="level-start"><span class="level-item">August 2022</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/05/"><span class="level-start"><span class="level-item">May 2022</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/02/"><span class="level-start"><span class="level-item">February 2022</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/01/"><span class="level-start"><span class="level-item">January 2022</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/10/"><span class="level-start"><span class="level-item">October 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/08/"><span class="level-start"><span class="level-item">August 2021</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/07/"><span class="level-start"><span class="level-item">July 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/06/"><span class="level-start"><span class="level-item">June 2021</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/02/"><span class="level-start"><span class="level-item">February 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/01/"><span class="level-start"><span class="level-item">January 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">Tags</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/Codeforces/"><span class="tag">Codeforces</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Course-Project/"><span class="tag">Course Project</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Git/"><span class="tag">Git</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Hexo/"><span class="tag">Hexo</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Jetson-Nano/"><span class="tag">Jetson Nano</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Linux/"><span class="tag">Linux</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/PlatformIO/"><span class="tag">PlatformIO</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/STM32/"><span class="tag">STM32</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/STM32CubeMX/"><span class="tag">STM32CubeMX</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Tensorflow/"><span class="tag">Tensorflow</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/VSCode/"><span class="tag">VSCode</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Vim/"><span class="tag">Vim</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/WSL/"><span class="tag">WSL</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/WSL2/"><span class="tag">WSL2</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%89%8D%E7%AB%AF/"><span class="tag">前端</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%AD%A6%E6%9C%9F%E6%80%BB%E7%BB%93/"><span class="tag">学期总结</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/"><span class="tag">安装教程</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%B7%A5%E5%85%B7/"><span class="tag">工具</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%95%88%E7%8E%87/"><span class="tag">效率</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%97%A5%E5%B8%B8/"><span class="tag">日常</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/"><span class="tag">树莓派</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%95%99%E6%A1%A3%E5%A4%87%E6%9F%A5/"><span class="tag">留档备查</span><span class="tag">11</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%AC%94%E8%AE%B0/"><span class="tag">笔记</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%AE%97%E6%B3%95/"><span class="tag">算法</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BB%98%E7%94%BB/"><span class="tag">绘画</span><span class="tag">1</span></a></div></div></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/yoris.ico" alt="Ding&#039;s Blog" height="28"></a><p class="is-size-7"><span>&copy; 2025 Ding Yang</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="Back to top" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "This website uses cookies to improve your experience.",
+          dismiss: "Got it!",
+          allow: "Allow cookies",
+          deny: "Decline",
+          link: "Learn more",
+          policy: "Cookie Policy",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="Type something..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"Type something...","untitled":"(Untitled)","posts":"Posts","pages":"Pages","categories":"Categories","tags":"Tags"});
+        });</script></body></html>
